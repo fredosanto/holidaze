@@ -1,8 +1,34 @@
-# React + Vite
+# Holidaze - Project Exam
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
 
-Currently, two official plugins are available:
+-
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Link to the site:
+
+## Built with
+
+- Vite
+- HTML
+- CSS
+- JavaScript
+- React
+- Tailwind
+- react-router-dom
+- react-hook-form
+- yup
+- Netlify
+
+## Getting started
+
+### Installing
+
+1. Clone the repo:
+
+```
+git clone https://github.com/fredosanto/holidaze.git
+
+npm install
+
+npm run dev
+```
