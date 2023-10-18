@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Poppins", Verdana, Geneva, Tahoma, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: #000000;
+  background-color: #ffffff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -23,4 +23,24 @@ body {
   display: flex;
   min-width: 320px;
   min-height: 100vh;
+}
+
+/* font-family: 'Archivo', sans-serif;
+font-family: 'Poppins', sans-serif; */
+#logo {
+  font-family: "Expletus Sans", Arial, Helvetica, sans-serif;
+}
+
+nav {
+  font-family: "Archivo", Arial, Helvetica, sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Nunito", Arial, Helvetica, sans-serif;
+}
+
+p {
+  font-family: "Poppins", Verdana, Geneva, Tahoma, sans-serif;
 }
