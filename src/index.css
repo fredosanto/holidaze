@@ -35,7 +35,10 @@ nav {
   font-family: "Archivo", Arial, Helvetica, sans-serif;
 }
 
-h1,
+h1 {
+  font-family: "Nunito Sans", Arial, Helvetica, sans-serif;
+}
+
 h2,
 h3 {
   font-family: "Nunito", Arial, Helvetica, sans-serif;
