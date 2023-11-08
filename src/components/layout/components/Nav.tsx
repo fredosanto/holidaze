@@ -9,10 +9,8 @@ function Nav() {
 
   useEffect(() => {
     if (status === null) {
-      console.log(status);
       setIsOnline(false);
     } else {
-      console.log(status);
       setIsOnline(true);
     }
   }, []);
@@ -45,7 +43,7 @@ function Nav() {
         ) : (
           <li></li>
         )}
-        <li>{isOnline ? "Online" : "Offline"}</li>
+        <li className="bg-green">{isOnline ? "Online" : "Offline"}</li>
       </ul>
     </nav>
   );

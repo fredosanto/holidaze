@@ -32,7 +32,7 @@ type Bookings = {
   updated: string;
 };
 
-export interface Venue {
+export interface VenueProps {
   id: string;
   name: string;
   description: string;
@@ -45,5 +45,5 @@ export interface Venue {
   meta: Meta;
   location: Location;
   owner: Owner;
-  bookings: Bookings[];
+  bookings?: Bookings[];
 }
