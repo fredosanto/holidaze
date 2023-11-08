@@ -1,8 +1,10 @@
-import { useState } from "react";
-import useRegister from "../api/auth/useRegister.js";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import useRegister from "../api/auth/useRegister";
 import { Link } from "react-router-dom";
 
-interface RegisterData {
+interface FormValues {
   name: string;
   email: string;
   password: string;
@@ -10,113 +12,79 @@ interface RegisterData {
   venueManager: boolean;
 }
 
+const schema = yup.object().shape({
+  name: yup.string().required("Required field"),
+  email: yup.string().required("Required field"),
+  password: yup.string().min(8).required("Required field"),
+  avatar: yup.string().optional(),
+  venueManager: yup.boolean(),
+});
+
+const url: string = "https://api.noroff.dev/api/v1/holidaze/auth/register";
+
 function Register() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [avatar, setAvatar] = useState("");
-  const [venueManager, setVenueManager] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) });
 
-  const url = "https://api.noroff.dev/api/v1/holidaze/auth/register";
-
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const registerData: RegisterData = {
-      name,
-      email,
-      password,
-      avatar,
-      venueManager,
-    };
-
-    console.log(registerData);
-
-    useRegister(url, registerData);
-  }
-
-  function onInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const value = e.target.value;
-    if (e.target.name === "name") {
-      setName(value);
-    }
-    if (e.target.name === "email") {
-      setEmail(value);
-    }
-    if (e.target.name === "password") {
-      setPassword(value);
-    }
-    if (e.target.name === "avatar") {
-      setAvatar(value);
-    }
-  }
-
-  function checkHandler() {
-    setVenueManager(!venueManager);
-  }
+  const onSubmit = (data: FormValues) => useRegister(url, data);
 
   return (
     <div>
       <h1>Register</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="loginInput">
-          <label htmlFor="name">name</label>
+          <label htmlFor="name">Name:</label>
           <input
-            type="text"
-            name="name"
-            id="name"
-            value={name}
-            onChange={onInputChange}
-            required
+            {...register("name")}
+            placeholder="Username"
             className="border block"
           />
+          <p>{errors.name?.message}</p>
         </div>
         <div className="loginInput">
-          <label htmlFor="email">email</label>
+          <label htmlFor="email">Email:</label>
           <input
             type="email"
-            name="email"
-            id="email"
-            value={email}
-            onChange={onInputChange}
-            required
+            {...register("email")}
+            placeholder="user@stud.noroff.no"
             className="border block"
           />
+          <p>{errors.email?.message}</p>
         </div>
         <div className="loginInput">
-          <label htmlFor="password">password</label>
+          <label htmlFor="password">Password:</label>
           <input
             type="password"
-            name="password"
-            id="password"
-            value={password}
-            onChange={onInputChange}
-            required
+            {...register("password")}
+            placeholder="********"
+            className="border block"
+          />
+          <p>{errors.password?.message}</p>
+        </div>
+        <div className="loginInput">
+          <label htmlFor="avatar">Avatar:</label>
+          <input
+            {...register("avatar")}
+            placeholder="url"
             className="border block"
           />
         </div>
         <div className="loginInput">
-          <label htmlFor="avatar">avatar</label>
+          <label htmlFor="venueManager">Admin</label>
           <input
-            type="text"
-            name="avatar"
-            id="avatar"
-            value={avatar}
-            onChange={onInputChange}
-            className="border block"
-          />
-        </div>
-        <div className="loginInput">
-          <label htmlFor="venueManager">admin</label>
-          <input
+            {...register("venueManager")}
             type="checkbox"
-            name="venueManager"
-            id="venueManager"
-            defaultChecked={venueManager}
-            onChange={checkHandler}
             className="block"
           />
         </div>
-        <button className="bg-blue hover:bg-blueHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl">
+
+        <button
+          type="submit"
+          className="bg-blue hover:bg-blueHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
+        >
           Register
         </button>
       </form>

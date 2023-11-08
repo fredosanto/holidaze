@@ -19,14 +19,13 @@ async function useRegister(url: string, formData: DataBody) {
     const data = await response.json();
     console.log(data);
 
-    if (response.ok) {
-      alert("User succesfully registered");
-      window.location.assign("/login");
+    if (!response.ok) {
+      throw Error;
     }
-  } catch (error) {
-    console.log(error);
-    // alert(error);
-    // throw error;
+    alert("User succesfully registered");
+    window.location.assign("/login");
+  } catch (error: any) {
+    alert(error.message);
   }
 }
 

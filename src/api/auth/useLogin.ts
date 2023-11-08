@@ -4,9 +4,7 @@ interface UserData {
   password: string;
 }
 
-const url = "https://api.noroff.dev/api/v1/holidaze/auth/login";
-
-async function login(userData: UserData) {
+async function useLogin(url: string, userData: UserData) {
   try {
     const response = await fetch(url, {
       method: "POST",
@@ -31,4 +29,4 @@ async function login(userData: UserData) {
   }
 }
 
-export default login;
+export default useLogin;
