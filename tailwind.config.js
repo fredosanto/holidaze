@@ -9,6 +9,8 @@ export default {
       greenHover: "#A8E19B",
       red: "#F8C9CC",
       light: "#F7F5F3",
+      black: "#000000",
+      white: "#FFFFFF",
       disabled: "#EEEEEE",
     },
     extend: {},
