@@ -1,4 +1,6 @@
+import { ValidationError } from "yup";
 import save from "../token/save";
+
 interface UserData {
   email: string;
   password: string;
@@ -12,20 +14,27 @@ async function useLogin(url: string, userData: UserData) {
       headers: { "Content-type": "application/json" },
     });
 
-    const user = await response.json();
     console.log(response);
-
     if (!response.ok) {
-      throw new Error("Username or password is incorrect");
+      const error = await response.json();
+      const message = error?.errors?.[0]?.message ?? "something went wrong";
+
+      throw new Error(error.status, { cause: message });
     }
+
+    console.log("i should not run");
+    const user = await response.json();
 
     localStorage.setItem("user", JSON.stringify(user));
     save(user.accessToken);
     alert("Logged in");
     location.assign("/profile");
   } catch (err) {
-    console.log(err);
-    alert(err);
+    if (err instanceof Error) {
+      alert(`${err} - ${err.cause}`);
+      return;
+    }
+    alert("woops - something went wrong");
   }
 }
 
