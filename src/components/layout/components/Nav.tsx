@@ -2,13 +2,15 @@ import { Link, NavLink } from "react-router-dom";
 import useLogout from "../../../api/auth/useLogout";
 // import userStatus from "../../../providers/userStatus";
 import { useState, useEffect } from "react";
+import { User } from "../../../types/user";
 
 function Nav() {
   const [isOnline, setIsOnline] = useState(false);
-  const status = JSON.parse(localStorage.getItem("user"));
+  const userJSON = localStorage.getItem("user");
+  const user: User | null = userJSON ? JSON.parse(userJSON) : null;
 
   useEffect(() => {
-    if (status === null) {
+    if (user === null) {
       setIsOnline(false);
     } else {
       setIsOnline(true);
@@ -18,7 +20,7 @@ function Nav() {
   // status ? setIsOnline(true) : setIsOnline(false);
 
   return (
-    <nav className="flex flex-col md:flex-row items-end w-max">
+    <nav className="flex flex-col md:flex-row items-end bg-red w-full">
       <div id="logo" className="text-4xl font-bold">
         Holidaze
       </div>

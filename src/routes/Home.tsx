@@ -1,5 +1,5 @@
 import { VenueProps } from "../types/hotel";
-import Venue from "../components/cards/Venue";
+import { VenueActions } from "../components/cards/Venue";
 // import getVenues from "../api/venues/getVenues";
 import { useEffect, useState } from "react";
 import Loading from "../components/Loading";
@@ -12,7 +12,7 @@ const link = url + endpoint;
 // const venues = await getVenues(link);
 
 function Home() {
-  const [venues, setVenues] = useState([]);
+  const [venues, setVenues] = useState<VenueProps[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -23,7 +23,7 @@ function Home() {
         setIsLoading(true);
 
         const res = await fetch(link);
-        const data = await res.json();
+        const data: VenueProps[] = await res.json();
         setVenues(data);
 
         setIsLoading(false);
@@ -53,23 +53,8 @@ function Home() {
       <h3 className="text-lg font-bold">This is the h3</h3>
       <p className="text-base font-normal">This is the paragraph</p>
       <p className="text-base font-medium">This is the medium paragrah</p> */}
-      {venues.map((venue: VenueProps) => (
-        <Venue
-          key={venue.id}
-          id={venue.id}
-          name={venue.name}
-          description={venue.description}
-          media={venue.media}
-          price={venue.price}
-          maxGuests={venue.maxGuests}
-          created={venue.created}
-          updated={venue.updated}
-          meta={venue.meta}
-          location={venue.location}
-          owner={venue.owner}
-          rating={venue.rating}
-          bookings={venue.bookings}
-        />
+      {venues.map((venue) => (
+        <VenueActions key={venue.id} venue={venue} />
       ))}
     </div>
   );

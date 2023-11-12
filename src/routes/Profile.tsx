@@ -1,12 +1,30 @@
+import { Link } from "react-router-dom";
+import ProfileCard from "../components/cards/ProfileCard";
+import { User } from "../types/user";
+
 function Profile() {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const userJSON = localStorage.getItem("user");
+  const user: User | null = userJSON ? JSON.parse(userJSON) : null;
+
   return (
-    <div>
+    <div className="h-screen">
       <h1>Profile</h1>
-      <h2>{user.name}</h2>
-      <p>Manager access: {user.venueManager ? "Yes" : "No"}</p>
-      <div className=" ">
-        <img src={user.avatar} alt="" className=" object-contain h-52 w-52 " />
+      {user ? (
+        <ProfileCard
+          avatar={user.avatar}
+          name={user.name}
+          email={user.email}
+          venueManager={user.venueManager}
+        />
+      ) : null}
+      <div>
+        <h2>Owned Avenues</h2>
+        <Link
+          to="/add"
+          className="bg-blue bg hover:bg-blueHover w-1/2 py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
+        >
+          Add new venue
+        </Link>
       </div>
     </div>
   );
