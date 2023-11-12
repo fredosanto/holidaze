@@ -1,6 +1,4 @@
-import { User } from "../../types/user";
-
-async function useRegister(url: string, formData: User) {
+export async function register(url, formData) {
   try {
     const response = await fetch(url, {
       method: "POST",
@@ -16,9 +14,7 @@ async function useRegister(url: string, formData: User) {
     }
     alert("User succesfully registered");
     window.location.assign("/login");
-  } catch (error: any) {
+  } catch (error) {
     alert(error.message);
   }
 }
-
-export default useRegister;

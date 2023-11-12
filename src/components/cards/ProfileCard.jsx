@@ -1,13 +1,7 @@
 import { Link } from "react-router-dom";
 import useLogout from "../../api/auth/useLogout";
-import { User } from "../../types/user";
 
-function ProfileCard({
-  avatar,
-  name,
-  email,
-  venueManager,
-}: Omit<User, "password">) {
+function ProfileCard({ avatar, name, email, venueManager }) {
   return (
     <div className="container flex justify-center w-1/2 m-auto bg-light py-5 rounded-lg text-center">
       <div>

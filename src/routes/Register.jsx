@@ -1,21 +1,20 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import useRegister from "../api/auth/useRegister";
+import { register } from "../api/auth/register";
 import { Link } from "react-router-dom";
-import { User, userSchema } from "../types/user";
+import { userSchema } from "../scehma/user";
 
-const url: string = "https://api.noroff.dev/api/v1/holidaze/auth/register";
+const url = "https://api.noroff.dev/api/v1/holidaze/auth/register";
 
 function Register() {
   const {
-    register,
+    register: formRegister,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(userSchema) });
 
-  const onSubmit = (data: User) => {
-    useRegister(url, data);
+  const onSubmit = (data) => {
+    register(url, data);
   };
 
   return (
@@ -25,7 +24,7 @@ function Register() {
         <div className="loginInput">
           <label htmlFor="name">Name:</label>
           <input
-            {...register("name")}
+            {...formRegister("name")}
             placeholder="Username"
             className="border block"
           />
@@ -35,7 +34,7 @@ function Register() {
           <label htmlFor="email">Email:</label>
           <input
             type="email"
-            {...register("email")}
+            {...formRegister("email")}
             placeholder="user@stud.noroff.no"
             className="border block"
           />
@@ -45,7 +44,7 @@ function Register() {
           <label htmlFor="password">Password:</label>
           <input
             type="password"
-            {...register("password")}
+            {...formRegister("password")}
             placeholder="********"
             className="border block"
           />
@@ -54,7 +53,7 @@ function Register() {
         <div className="loginInput">
           <label htmlFor="avatar">Avatar:</label>
           <input
-            {...register("avatar")}
+            {...formRegister("avatar")}
             placeholder="url"
             className="border block"
           />
@@ -62,7 +61,7 @@ function Register() {
         <div className="loginInput">
           <label htmlFor="venueManager">Admin</label>
           <input
-            {...register("venueManager")}
+            {...formRegister("venueManager")}
             type="checkbox"
             className="block"
           />

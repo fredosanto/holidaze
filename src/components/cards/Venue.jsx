@@ -1,8 +1,6 @@
-import { VenueProps } from "../../types/hotel";
-import { User } from "../../types/user";
 import VenueImage from "./VenueImage";
 
-const Location = ({ location }: Pick<VenueProps, "location">) => {
+const Location = ({ location }) => {
   if (!location.country ?? !location.city) {
     return null;
   }
@@ -14,7 +12,7 @@ const Location = ({ location }: Pick<VenueProps, "location">) => {
   );
 };
 
-const Price = ({ price }: Pick<VenueProps, "price">) => {
+const Price = ({ price }) => {
   return (
     <div>
       <b className="text-sm">Price: </b>
@@ -23,13 +21,7 @@ const Price = ({ price }: Pick<VenueProps, "price">) => {
   );
 };
 
-export const Venue = ({
-  maxGuests,
-  media,
-  name,
-  location,
-  price,
-}: VenueProps) => {
+export const Venue = ({ maxGuests, media, name, location, price }) => {
   return (
     <div>
       <VenueImage image={media[0]} name={name} maxGuests={maxGuests} />
@@ -40,13 +32,7 @@ export const Venue = ({
   );
 };
 
-export const VenueActions = ({
-  venue,
-  user,
-}: {
-  venue: VenueProps;
-  user?: User;
-}) => {
+export const VenueActions = ({ venue, user }) => {
   const Controls = () => {
     if (!user) {
       return <button className="bg-blue">View venue</button>;
@@ -75,7 +61,7 @@ export const VenueActions = ({
   );
 };
 
-// function Venue(venue: VenueProps) {
+// function Venue(venue) {
 //   return (
 //     <div className="bg-green m-10">
 //       <h2>{venue.name}</h2>

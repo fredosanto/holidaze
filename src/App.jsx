@@ -9,7 +9,7 @@ import Home from "./routes/Home";
 import ErrorPage from "./routes/ErrorPage";
 import Venues from "./routes/Venues";
 import Profile from "./routes/Profile";
-import Login from "./routes/Login";
+import { Login } from "./routes/Login";
 import Register from "./routes/Register";
 import "./App.css";
 import Avatar from "./routes/Avatar";

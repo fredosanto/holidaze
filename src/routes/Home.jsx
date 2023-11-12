@@ -1,4 +1,3 @@
-import { VenueProps } from "../types/hotel";
 import { VenueActions } from "../components/cards/Venue";
 // import getVenues from "../api/venues/getVenues";
 import { useEffect, useState } from "react";
@@ -12,7 +11,7 @@ const link = url + endpoint;
 // const venues = await getVenues(link);
 
 function Home() {
-  const [venues, setVenues] = useState<VenueProps[]>([]);
+  const [venues, setVenues] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -23,7 +22,7 @@ function Home() {
         setIsLoading(true);
 
         const res = await fetch(link);
-        const data: VenueProps[] = await res.json();
+        const data = await res.json();
         setVenues(data);
 
         setIsLoading(false);

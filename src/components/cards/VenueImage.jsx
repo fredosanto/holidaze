@@ -1,10 +1,4 @@
-interface Props {
-  image: string;
-  name?: string;
-  maxGuests?: number;
-}
-
-function VenueImage({ image, name, maxGuests }: Props) {
+function VenueImage({ image, name, maxGuests }) {
   return (
     <div className="relative overflow-hidden rounded-xl">
       <img src={image} alt={name} />

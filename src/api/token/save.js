@@ -1,4 +1,4 @@
-async function save(token: string) {
+async function save(token) {
   const url = "https://api.noroff.dev/api/v1/holidaze/bookings";
 
   if (!token) {

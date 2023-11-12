@@ -1,4 +1,4 @@
-function remove(key: string) {
+function remove(key) {
   console.log(key);
   localStorage.removeItem(key);
 }

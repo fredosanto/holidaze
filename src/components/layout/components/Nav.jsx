@@ -1,13 +1,12 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useLogout from "../../../api/auth/useLogout";
 // import userStatus from "../../../providers/userStatus";
 import { useState, useEffect } from "react";
-import { User } from "../../../types/user";
 
 function Nav() {
   const [isOnline, setIsOnline] = useState(false);
   const userJSON = localStorage.getItem("user");
-  const user: User | null = userJSON ? JSON.parse(userJSON) : null;
+  const user = userJSON ? JSON.parse(userJSON) : null;
 
   useEffect(() => {
     if (user === null) {
@@ -15,7 +14,7 @@ function Nav() {
     } else {
       setIsOnline(true);
     }
-  }, []);
+  }, [user]);
 
   // status ? setIsOnline(true) : setIsOnline(false);
 

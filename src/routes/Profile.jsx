@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
 import ProfileCard from "../components/cards/ProfileCard";
-import { User } from "../types/user";
 
 function Profile() {
   const userJSON = localStorage.getItem("user");
-  const user: User | null = userJSON ? JSON.parse(userJSON) : null;
+  const user = userJSON ? JSON.parse(userJSON) : null;
 
   return (
     <div className="h-screen">

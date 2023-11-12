@@ -1,4 +1,4 @@
-const load = (key: string) => {
+const load = (key) => {
   localStorage.getItem(key);
 };
 

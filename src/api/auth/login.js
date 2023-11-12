@@ -1,7 +1,6 @@
-import { ValidationError } from "yup";
 import save from "../token/save";
 
-async function useLogin(url, userData) {
+export async function login(url, userData) {
   try {
     const response = await fetch(url, {
       method: "POST",
@@ -32,5 +31,3 @@ async function useLogin(url, userData) {
     alert("woops - something went wrong");
   }
 }
-
-export default useLogin;
