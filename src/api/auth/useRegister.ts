@@ -1,14 +1,6 @@
-import { error } from "console";
+import { User } from "../../types/user";
 
-interface DataBody {
-  name: string;
-  email: string;
-  password: string;
-  avatar: string;
-  venueManager: boolean;
-}
-
-async function useRegister(url: string, formData: DataBody) {
+async function useRegister(url: string, formData: User) {
   try {
     const response = await fetch(url, {
       method: "POST",

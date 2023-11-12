@@ -3,22 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import useRegister from "../api/auth/useRegister";
 import { Link } from "react-router-dom";
-
-interface FormValues {
-  name: string;
-  email: string;
-  password: string;
-  avatar: string;
-  venueManager: boolean;
-}
-
-const schema = yup.object().shape({
-  name: yup.string().required("Required field"),
-  email: yup.string().required("Required field"),
-  password: yup.string().min(8).required("Required field"),
-  avatar: yup.string().optional(),
-  venueManager: yup.boolean(),
-});
+import { User, userSchema } from "../types/user";
 
 const url: string = "https://api.noroff.dev/api/v1/holidaze/auth/register";
 
@@ -27,9 +12,11 @@ function Register() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) });
+  } = useForm({ resolver: yupResolver(userSchema) });
 
-  const onSubmit = (data: FormValues) => useRegister(url, data);
+  const onSubmit = (data: User) => {
+    useRegister(url, data);
+  };
 
   return (
     <div>
