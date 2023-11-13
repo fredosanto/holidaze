@@ -1,14 +1,8 @@
-import { error } from "console";
+import { API } from "../enpoints";
 
-interface DataBody {
-  name: string;
-  email: string;
-  password: string;
-  avatar: string;
-  venueManager: boolean;
-}
+const url = API.auth.register;
 
-async function useRegister(url: string, formData: DataBody) {
+export async function register(formData) {
   try {
     const response = await fetch(url, {
       method: "POST",
@@ -24,9 +18,7 @@ async function useRegister(url: string, formData: DataBody) {
     }
     alert("User succesfully registered");
     window.location.assign("/login");
-  } catch (error: any) {
+  } catch (error) {
     alert(error.message);
   }
 }
-
-export default useRegister;

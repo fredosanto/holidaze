@@ -9,9 +9,11 @@ import Home from "./routes/Home";
 import ErrorPage from "./routes/ErrorPage";
 import Venues from "./routes/Venues";
 import Profile from "./routes/Profile";
-import Login from "./routes/Login";
+import { Login } from "./routes/Login";
 import Register from "./routes/Register";
 import "./App.css";
+import Avatar from "./routes/Avatar";
+import Add from "./routes/Add";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -21,6 +23,8 @@ const router = createBrowserRouter(
       <Route path="/profile" element={<Profile />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/avatar" element={<Avatar />} />
+      <Route path="/add" element={<Add />} />
       {/* <Route path="*" element={<ErrorPage />} /> */}
     </Route>
   )

@@ -1,10 +1,8 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import useLogin from "../api/auth/useLogin";
+import { login } from "../api/auth/login";
 import { Link } from "react-router-dom";
-
-const url = "https://api.noroff.dev/api/v1/holidaze/auth/login";
 
 const schema = yup
   .object()
@@ -14,26 +12,21 @@ const schema = yup
   })
   .required();
 
-interface LoginData {
-  email: string;
-  password: string;
-}
-
-function Login() {
+export function Login() {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const onSubmit = (data: LoginData) => {
-    console.log(data);
-    useLogin(url, data);
-  };
+  // const onSubmit = (data) => {
+  //   console.log(data);
+  //   login(url, data);
+  // };
 
   return (
     <div className="h-screen">
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit((data) => login(data))}>
         <div className="loginInput">
           <label htmlFor="email">email</label>
           <input
@@ -124,5 +117,3 @@ function Login() {
 //     </div>
 //   );
 // }
-
-export default Login;

@@ -1,8 +1,6 @@
-import { VenueProps } from "../../types/hotel";
-import { User } from "../../types/user";
 import VenueImage from "./VenueImage";
 
-const Location = ({ location }: Pick<VenueProps, "location">) => {
+const Location = ({ location }) => {
   if (!location.country ?? !location.city) {
     return null;
   }
@@ -14,7 +12,7 @@ const Location = ({ location }: Pick<VenueProps, "location">) => {
   );
 };
 
-const Price = ({ price }: Pick<VenueProps, "price">) => {
+const Price = ({ price }) => {
   return (
     <div>
       <b className="text-sm">Price: </b>
@@ -23,13 +21,7 @@ const Price = ({ price }: Pick<VenueProps, "price">) => {
   );
 };
 
-export const Venue = ({
-  maxGuests,
-  media,
-  name,
-  location,
-  price,
-}: VenueProps) => {
+export const Venue = ({ maxGuests, media, name, location, price }) => {
   return (
     <div>
       <VenueImage image={media[0]} name={name} maxGuests={maxGuests} />
@@ -40,13 +32,7 @@ export const Venue = ({
   );
 };
 
-export const VenueActions = ({
-  venue,
-  user,
-}: {
-  venue: VenueProps;
-  user?: User;
-}) => {
+export const VenueActions = ({ venue, user }) => {
   const Controls = () => {
     if (!user) {
       return <button className="bg-blue">View venue</button>;
@@ -66,7 +52,6 @@ export const VenueActions = ({
       </>
     );
   };
-  console.log("time to return");
   return (
     <div className="my-10">
       <Venue {...venue} />
@@ -74,20 +59,3 @@ export const VenueActions = ({
     </div>
   );
 };
-
-// function Venue(venue: VenueProps) {
-//   return (
-//     <div className="bg-green m-10">
-//       <h2>{venue.name}</h2>
-//       <div>
-//         <p>Description: {venue.description}</p>
-//         <p>Address: {venue.location.address}</p>
-//         <p>City: {venue.location.city}</p>
-//         <p>Country: {venue.location.country}</p>
-//         <p>Price: {venue.price}</p>
-//         <p>Price</p>
-//       </div>
-//       <button className="bg-blue">View venue</button>
-//     </div>
-//   );
-// }

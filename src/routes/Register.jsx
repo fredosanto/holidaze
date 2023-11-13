@@ -1,44 +1,24 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import useRegister from "../api/auth/useRegister";
+import { register } from "../api/auth/register";
 import { Link } from "react-router-dom";
-
-interface FormValues {
-  name: string;
-  email: string;
-  password: string;
-  avatar: string;
-  venueManager: boolean;
-}
-
-const schema = yup.object().shape({
-  name: yup.string().required("Required field"),
-  email: yup.string().required("Required field"),
-  password: yup.string().min(8).required("Required field"),
-  avatar: yup.string().optional(),
-  venueManager: yup.boolean(),
-});
-
-const url: string = "https://api.noroff.dev/api/v1/holidaze/auth/register";
+import { userSchema } from "../scehma/user";
 
 function Register() {
   const {
-    register,
+    register: formRegister,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) });
-
-  const onSubmit = (data: FormValues) => useRegister(url, data);
+  } = useForm({ resolver: yupResolver(userSchema) });
 
   return (
     <div>
       <h1>Register</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit((data) => register(data))}>
         <div className="loginInput">
           <label htmlFor="name">Name:</label>
           <input
-            {...register("name")}
+            {...formRegister("name")}
             placeholder="Username"
             className="border block"
           />
@@ -47,8 +27,8 @@ function Register() {
         <div className="loginInput">
           <label htmlFor="email">Email:</label>
           <input
+            {...formRegister("email")}
             type="email"
-            {...register("email")}
             placeholder="user@stud.noroff.no"
             className="border block"
           />
@@ -57,8 +37,8 @@ function Register() {
         <div className="loginInput">
           <label htmlFor="password">Password:</label>
           <input
+            {...formRegister("password")}
             type="password"
-            {...register("password")}
             placeholder="********"
             className="border block"
           />
@@ -67,7 +47,7 @@ function Register() {
         <div className="loginInput">
           <label htmlFor="avatar">Avatar:</label>
           <input
-            {...register("avatar")}
+            {...formRegister("avatar")}
             placeholder="url"
             className="border block"
           />
@@ -75,7 +55,7 @@ function Register() {
         <div className="loginInput">
           <label htmlFor="venueManager">Admin</label>
           <input
-            {...register("venueManager")}
+            {...formRegister("venueManager")}
             type="checkbox"
             className="block"
           />
