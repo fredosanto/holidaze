@@ -1,10 +1,9 @@
-import remove from "../token/remove";
+import { remove } from "../token/index.mjs";
 
-function useLogout() {
-  localStorage.clear();
+export function useLogout() {
+  remove("token");
+  remove("user");
   alert("Logged out");
   location.assign("/login");
   //   remove(key);
 }
-
-export default useLogout;

@@ -1,6 +1,9 @@
-import save from "../token/save";
+import { API } from "../enpoints";
+import { save } from "../token/save";
 
-export async function login(url, userData) {
+const url = API.auth.login;
+
+export async function login(userData) {
   try {
     const response = await fetch(url, {
       method: "POST",
@@ -8,7 +11,6 @@ export async function login(url, userData) {
       headers: { "Content-type": "application/json" },
     });
 
-    console.log(response);
     if (!response.ok) {
       const error = await response.json();
       const message = error?.errors?.[0]?.message ?? "something went wrong";
@@ -16,11 +18,10 @@ export async function login(url, userData) {
       throw new Error(error.status, { cause: message });
     }
 
-    console.log("i should not run");
     const user = await response.json();
+    save("token", user.accessToken);
+    save("user", user);
 
-    localStorage.setItem("user", JSON.stringify(user));
-    save(user.accessToken);
     alert("Logged in");
     location.assign("/profile");
   } catch (err) {

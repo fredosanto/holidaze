@@ -1,4 +1,8 @@
-export async function register(url, formData) {
+import { API } from "../enpoints";
+
+const url = API.auth.register;
+
+export async function register(formData) {
   try {
     const response = await fetch(url, {
       method: "POST",
