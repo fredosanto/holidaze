@@ -1,23 +1,3 @@
-async function save(token) {
-  const url = "https://api.noroff.dev/api/v1/holidaze/bookings";
-
-  if (!token) {
-    return;
-  }
-
-  console.log(token);
-  const options = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
-  localStorage.setItem("token", token);
-
-  const response = await fetch(`${url}`, options);
-  const data = await response.json();
-
-  console.log(data);
+export function save(key, value) {
+  localStorage.setItem(key, JSON.stringify(value));
 }
-
-export default save;

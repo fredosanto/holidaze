@@ -1,6 +1,3 @@
-function remove(key) {
-  console.log(key);
+export function remove(key) {
   localStorage.removeItem(key);
 }
-
-export default remove;
