@@ -4,8 +4,6 @@ import { register } from "../api/auth/register";
 import { Link } from "react-router-dom";
 import { userSchema } from "../scehma/user";
 
-const url = "https://api.noroff.dev/api/v1/holidaze/auth/register";
-
 function Register() {
   const {
     register: formRegister,
@@ -13,14 +11,10 @@ function Register() {
     formState: { errors },
   } = useForm({ resolver: yupResolver(userSchema) });
 
-  const onSubmit = (data) => {
-    register(url, data);
-  };
-
   return (
     <div>
       <h1>Register</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit((data) => register(data))}>
         <div className="loginInput">
           <label htmlFor="name">Name:</label>
           <input
@@ -33,8 +27,8 @@ function Register() {
         <div className="loginInput">
           <label htmlFor="email">Email:</label>
           <input
-            type="email"
             {...formRegister("email")}
+            type="email"
             placeholder="user@stud.noroff.no"
             className="border block"
           />
@@ -43,8 +37,8 @@ function Register() {
         <div className="loginInput">
           <label htmlFor="password">Password:</label>
           <input
-            type="password"
             {...formRegister("password")}
+            type="password"
             placeholder="********"
             className="border block"
           />

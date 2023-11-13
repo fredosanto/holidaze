@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import useLogout from "../../api/auth/useLogout";
+import { useLogout } from "../../api/auth/index.mjs";
 
 function ProfileCard({ avatar, name, email, venueManager }) {
   return (
@@ -16,7 +16,7 @@ function ProfileCard({ avatar, name, email, venueManager }) {
         <div className="my-5">
           <h2>{name}</h2>
           <p>{email}</p>
-          <p>Manager access: {venueManager ? "Yes" : "No"}</p>
+          <p>Admin access: {venueManager ? "Yes" : "No"}</p>
         </div>
         <button
           onClick={useLogout}

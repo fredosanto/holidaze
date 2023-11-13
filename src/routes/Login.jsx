@@ -4,8 +4,6 @@ import * as yup from "yup";
 import { login } from "../api/auth/login";
 import { Link } from "react-router-dom";
 
-const url = "https://api.noroff.dev/api/v1/holidaze/auth/login";
-
 const schema = yup
   .object()
   .shape({
@@ -21,14 +19,14 @@ export function Login() {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const onSubmit = (data) => {
-    console.log(data);
-    login(url, data);
-  };
+  // const onSubmit = (data) => {
+  //   console.log(data);
+  //   login(url, data);
+  // };
 
   return (
     <div className="h-screen">
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit((data) => login(data))}>
         <div className="loginInput">
           <label htmlFor="email">email</label>
           <input

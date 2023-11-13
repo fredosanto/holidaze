@@ -1,22 +1,20 @@
-import { Link } from "react-router-dom";
-import useLogout from "../../../api/auth/useLogout";
-// import userStatus from "../../../providers/userStatus";
+import { NavLink } from "react-router-dom";
+import { useLogout } from "../../../api/auth/index.mjs";
 import { useState, useEffect } from "react";
+import { isOnline } from "../../../api/auth/index.mjs";
+import { boolean } from "yup";
 
 function Nav() {
-  const [isOnline, setIsOnline] = useState(false);
-  const userJSON = localStorage.getItem("user");
-  const user = userJSON ? JSON.parse(userJSON) : null;
+  const status = isOnline();
+  const [isOnlineStatus, setIsOnlineStatus] = useState(boolean);
 
   useEffect(() => {
-    if (user === null) {
-      setIsOnline(false);
+    if (status) {
+      setIsOnlineStatus(true);
     } else {
-      setIsOnline(true);
+      setIsOnlineStatus(false);
     }
-  }, [user]);
-
-  // status ? setIsOnline(true) : setIsOnline(false);
+  }, [status]);
 
   return (
     <nav className="flex flex-col md:flex-row items-end bg-red w-full">
@@ -25,26 +23,26 @@ function Nav() {
       </div>
       <ul className="flex flex-col md:flex-row gap-5">
         <li>
-          <Link to="/">Home</Link>
+          <NavLink to="/">Home</NavLink>
         </li>
         <li>
-          <Link to="/venues">Venues</Link>
+          <NavLink to="/venues">Venues</NavLink>
         </li>
         <li>
           {localStorage.getItem("token") ? (
-            <Link to="/profile">Profile</Link>
+            <NavLink to="/profile">Profile</NavLink>
           ) : (
-            <Link to="/login">Login</Link>
+            <NavLink to="/login">Login</NavLink>
           )}
         </li>
-        {localStorage.getItem("token") ? (
+        {isOnlineStatus ? (
           <li>
             <button onClick={useLogout}>Logout</button>
           </li>
         ) : (
           <li></li>
         )}
-        <li className="bg-green">{isOnline ? "Online" : "Offline"}</li>
+        <li className="bg-green">{isOnlineStatus ? "Online" : "Offline"}</li>
       </ul>
     </nav>
   );
