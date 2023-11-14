@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { addVenue } from "../api/venues/addVenue";
 
 const schema = yup.object({
   name: yup.string().required("*Please add a name"),
@@ -8,7 +10,7 @@ const schema = yup.object({
   media: yup.array().of(yup.string()).ensure().optional(),
   price: yup.number().required("*Please add price"),
   maxGuests: yup.number().required("*Please add guests"),
-  rating: yup.number().min(0).max(10),
+  rating: yup.number().min(0).max(5),
   meta: yup.object().shape({
     wifi: yup.boolean(),
     parking: yup.boolean(),
@@ -36,7 +38,7 @@ function Add() {
     <div>
       <h1>Add new venue</h1>
       <p>Fields marked with * is required.</p>
-      <form onSubmit={handleSubmit((data) => console.log(data))}>
+      <form onSubmit={handleSubmit((data) => addVenue(data))}>
         <div className="formSection general">
           <h2>General information</h2>
           <div className="formInput">
@@ -97,7 +99,7 @@ function Add() {
               {...createRegister("rating")}
               type="range"
               min="0"
-              max="10"
+              max="5"
               className="border block"
             />
             <p>{errors.rating?.message}</p>
@@ -228,6 +230,7 @@ function Add() {
           Add venue
         </button>
       </form>
+      <Link to="">Go back to profile</Link>
     </div>
   );
 }
