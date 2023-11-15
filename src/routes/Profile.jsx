@@ -5,7 +5,6 @@ import ErrorPage from "./ErrorPage";
 import { useEffect, useState } from "react";
 import { user } from "../api/auth/index.mjs";
 import { profileVenues } from "../api/venues/profileVenues";
-import { VenueActions } from "../components/cards/venue/Venue";
 import { Venue } from "../components/cards/venue/Venue";
 
 function Profile() {
