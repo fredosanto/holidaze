@@ -1,14 +1,8 @@
-import { VenueActions } from "../components/cards/venue/Venue";
 import { Venue } from "../components/cards/venue/Venue";
 import { useEffect, useState } from "react";
 import Loading from "../components/Loading";
-import Error from "../components/Error";
-import { API } from "../api/enpoints";
-
-const api = API.venues.$;
-const parameters =
-  "?sort=created&sortOrder=desc&limit=10&_owner=true&_bookings=true";
-const url = `${api + parameters}`;
+import { getVenues } from "../api/venues/getVenues";
+import ErrorPage from "./ErrorPage";
 
 function Venues() {
   const [venues, setVenues] = useState([]);
@@ -16,39 +10,39 @@ function Venues() {
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    async function getVenues() {
+    async function extractVenues() {
       try {
         setIsError(false);
         setIsLoading(true);
 
-        const res = await fetch(url);
-        const data = await res.json();
+        const data = await getVenues();
         setVenues(data);
+        console.log(data);
 
         setIsLoading(false);
       } catch (err) {
         setIsLoading(false);
         setIsError(true);
+        console.log("runned into error");
       }
     }
-
-    getVenues();
+    extractVenues();
   }, []);
 
-  console.log(venues);
+  // console.log(venues);
 
   if (isLoading) {
     return <Loading />;
   }
 
   if (isError) {
-    return <Error />;
+    return <ErrorPage />;
   }
 
   return (
     <div>
       {venues.map((venue) => (
-        <VenueActions key={venue.id} venue={venue} />
+        <Venue key={venue.id} venue={venue} />
       ))}
     </div>
   );

@@ -1,8 +1,31 @@
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { addVenue } from "../api/venues/addVenue";
 
-const schema = yup.object({});
+const schema = yup.object({
+  name: yup.string().required("*Please add a name"),
+  description: yup.string().required("*Please add description"),
+  media: yup.array().of(yup.string()).ensure().optional(),
+  price: yup.number().required("*Please add price"),
+  maxGuests: yup.number().required("*Please add guests"),
+  rating: yup.number().min(0).max(5),
+  meta: yup.object().shape({
+    wifi: yup.boolean(),
+    parking: yup.boolean(),
+    breakfast: yup.boolean(),
+    pets: yup.boolean(),
+  }),
+  location: yup.object().shape({
+    address: yup.string().optional(),
+    city: yup.string().optional(),
+    zip: yup.string().optional(),
+    country: yup.string().optional(),
+    lat: yup.number().optional(),
+    lng: yup.number().optional(),
+  }),
+});
 
 function Add() {
   const {
@@ -13,23 +36,27 @@ function Add() {
 
   return (
     <div>
-      <form>
+      <h1>Add new venue</h1>
+      <p>Fields marked with * is required.</p>
+      <form onSubmit={handleSubmit((data) => addVenue(data))}>
         <div className="formSection general">
           <h2>General information</h2>
           <div className="formInput">
-            <label htmlFor="name">Name:</label>
+            <label htmlFor="name">Name:*</label>
             <input
               {...createRegister("name")}
               type="text"
+              placeholder="Enter name"
               className="border block"
             />
             <p>{errors.name?.message}</p>
           </div>
           <div className="formInput">
-            <label htmlFor="description">Description:</label>
+            <label htmlFor="description">Description:*</label>
             <textarea
               {...createRegister("description")}
               type="text"
+              placeholder="Write a description..."
               className="border block w-96 h-52"
             ></textarea>
             <p>{errors.description?.message}</p>
@@ -38,17 +65,19 @@ function Add() {
             <label htmlFor="media">Images:</label>
             <input
               {...createRegister("media")}
-              type=""
+              type="text"
+              placeholder="https://img.service.com/avatar.jpg"
               className="border block"
             />
             <p>{errors.media?.message}</p>
           </div>
           <div className="formInput">
-            <label htmlFor="price">Price:</label>
+            <label htmlFor="price">Price:*</label>
             <input
               {...createRegister("price")}
               type="number"
               min="0"
+              placeholder="10000"
               className="border block"
             />
             <p>{errors.price?.message}</p>
@@ -59,6 +88,7 @@ function Add() {
               {...createRegister("maxGuests")}
               type="number"
               min="0"
+              placeholder="4"
               className="border block"
             />
             <p>{errors.maxGuests?.message}</p>
@@ -69,7 +99,7 @@ function Add() {
               {...createRegister("rating")}
               type="range"
               min="0"
-              max="10"
+              max="5"
               className="border block"
             />
             <p>{errors.rating?.message}</p>
@@ -77,11 +107,11 @@ function Add() {
         </div>
         <div className="formSection services">
           <h2>Services</h2>
-          <div className="flex">
+          <div>
             <div>
               <label htmlFor="wifi">wifi:</label>
               <input
-                {...createRegister("wifi")}
+                {...createRegister("meta.wifi")}
                 type="checkbox"
                 className="border"
               />
@@ -90,7 +120,7 @@ function Add() {
             <div>
               <label htmlFor="parking">Parking:</label>
               <input
-                {...createRegister("parking")}
+                {...createRegister("meta.parking")}
                 type="checkbox"
                 className="border"
               />
@@ -99,7 +129,7 @@ function Add() {
             <div>
               <label htmlFor="breakfast">Breakfast:</label>
               <input
-                {...createRegister("breakfast")}
+                {...createRegister("meta.breakfast")}
                 type="checkbox"
                 className="border"
               />
@@ -108,7 +138,7 @@ function Add() {
             <div>
               <label htmlFor="pets">Pets:</label>
               <input
-                {...createRegister("pets")}
+                {...createRegister("meta.pets")}
                 type="checkbox"
                 className="border"
               />
@@ -121,18 +151,20 @@ function Add() {
           <div>
             <label htmlFor="address">Address:</label>
             <input
-              {...createRegister("address")}
+              {...createRegister("location.address")}
               type="text"
+              placeholder="Venue Address 23"
               className="border block"
             />
             <p>{errors.address?.message}</p>
           </div>
-          <div className="inputSplit">
+          <div className="inputSplit flex">
             <div className="split">
               <label htmlFor="city">City:</label>
               <input
-                {...createRegister("city")}
+                {...createRegister("location.city")}
                 type="text"
+                placeholder="e.g Oslo"
                 className="border block"
               />
               <p>{errors.city?.message}</p>
@@ -140,8 +172,9 @@ function Add() {
             <div className="split">
               <label htmlFor="zip">Zip:</label>
               <input
-                {...createRegister("zip")}
+                {...createRegister("location.zip")}
                 type="text"
+                placeholder="e.g 0664"
                 className="border block"
               />
               <p>{errors.zip?.message}</p>
@@ -150,8 +183,9 @@ function Add() {
           <div>
             <label htmlFor="country">Country:</label>
             <input
-              {...createRegister("country")}
+              {...createRegister("location.country")}
               type="text"
+              placeholder="e.g Norway"
               className="border block"
             />
             <p>{errors.country?.message}</p>
@@ -159,18 +193,20 @@ function Add() {
           <div>
             <label htmlFor="continent">Continent:</label>
             <input
-              {...createRegister("continent")}
+              {...createRegister("location.continent")}
               type="text"
+              placeholder="e.g Europe"
               className="border block"
             />
             <p>{errors.continent?.message}</p>
           </div>
-          <div className="inputSplit">
+          <div className="inputSplit flex">
             <div className="split">
               <label htmlFor="latitude">Latitude:</label>
               <input
-                {...createRegister("latitude")}
+                {...createRegister("location.latitude")}
                 type="number"
+                placeholder="59.911491"
                 className="border block"
               />
               <p>{errors.latitude?.message}</p>
@@ -178,8 +214,9 @@ function Add() {
             <div className="split">
               <label htmlFor="longitude:">Longitude::</label>
               <input
-                {...createRegister("longitude")}
+                {...createRegister("location.longitude")}
                 type="number"
+                placeholder="10.757933"
                 className="border block"
               />
               <p>{errors.longitude?.message}</p>
@@ -193,6 +230,7 @@ function Add() {
           Add venue
         </button>
       </form>
+      <Link to="">Go back to profile</Link>
     </div>
   );
 }
