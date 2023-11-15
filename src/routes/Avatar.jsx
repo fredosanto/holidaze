@@ -5,9 +5,6 @@ import * as yup from "yup";
 import { load } from "../api/token/index.mjs";
 import { updateAvatar } from "../api/avatar/updateAvatar";
 
-const { avatar } = load("user");
-const showAvatar = avatar != "";
-
 const regex = `(http(s?):)([/|.|\w|\s|-])*\.`;
 
 const updateAvatarSchema = yup
@@ -20,6 +17,8 @@ const updateAvatarSchema = yup
   .required();
 
 function Avatar() {
+  const { avatar } = load("user");
+  const showAvatar = avatar != "";
   const {
     register,
     handleSubmit,

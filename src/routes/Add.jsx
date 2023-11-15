@@ -230,7 +230,7 @@ function Add() {
           Add venue
         </button>
       </form>
-      <Link to="">Go back to profile</Link>
+      <Link to="/profile">Go back to profile</Link>
     </div>
   );
 }
