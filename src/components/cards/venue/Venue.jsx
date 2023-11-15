@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import VenueImage from "./VenueImage";
 
 const Location = ({ location }) => {
@@ -51,9 +52,12 @@ export const VenueActions = ({ user }) => {
     if (user.venueManager) {
       return (
         <div className="flex justify-around">
-          <button className="w-1/3 bg-green hover:bg-greenHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl">
+          <Link
+            to="/manage"
+            className="w-1/3 bg-green hover:bg-greenHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl text-center"
+          >
             Manage
-          </button>
+          </Link>
           <button className="w-1/3 bg-red hover:bg-redHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl">
             Delete
           </button>
