@@ -2,12 +2,11 @@ import { API } from "../enpoints";
 // import { user } from "../auth/index.mjs";
 import { load } from "../token/index.mjs";
 
-const url = API.venues.$;
-
-export async function addVenue(venueData) {
+export async function updateVenue(venueData, venueId) {
+  const url = API.venues.id(venueId).$;
   try {
     const response = await fetch(url, {
-      method: "POST",
+      method: "PUT",
       body: JSON.stringify(venueData),
       headers: {
         ["Content-type"]: "application/json",
@@ -17,7 +16,7 @@ export async function addVenue(venueData) {
 
     const res = await response.json();
     console.log(res);
-    alert("New venue added");
+    alert("Venue updated");
     location.assign("/profile");
   } catch (err) {
     console.log(err);

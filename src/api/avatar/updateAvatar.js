@@ -18,6 +18,7 @@ export async function updateAvatar(imgLink) {
     const res = await response.json();
 
     save("user", res);
+    alert("Avatar updated");
     window.location.reload();
 
     console.log(res);
