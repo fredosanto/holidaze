@@ -17,7 +17,7 @@ export async function addVenue(venueData) {
 
     const res = await response.json();
     console.log(res);
-    console.log("runned!");
+    alert("New venue added");
     location.assign("/profile");
   } catch (err) {
     console.log(err);
