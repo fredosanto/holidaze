@@ -1,11 +1,4 @@
-import { API } from "../enpoints";
-
-const api = API.venues.$;
-const parameters =
-  "?sort=created&sortOrder=desc&limit=10&_owner=true&_bookings=true";
-const url = `${api + parameters}`;
-
-export async function getVenues() {
+export async function getVenues(url) {
   try {
     const res = await fetch(url);
     const data = await res.json();
