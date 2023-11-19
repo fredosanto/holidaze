@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import VenueImage from "./VenueImage";
 
 const Location = ({ location }) => {
-  if (!location.country ?? !location.city) {
+  if (!location?.country ?? !location?.city) {
     return null;
   }
 
@@ -27,20 +27,20 @@ export const Venue = ({ venue, user }) => {
     <div className="my-10 mx-2 sm:w-3/4 md:w-1/2">
       <div className="bg-light">
         <VenueImage
-          image={venue.media[0]}
+          image={venue?.media}
           name={venue.name}
           maxGuests={venue.maxGuests}
         />
         <h2>{venue.name}</h2>
-        <Location location={venue.location} />
+        <Location location={venue?.location} />
         <Price price={venue.price} />
       </div>
-      <VenueActions user={user} />
+      <VenueActions user={user} venueId={venue.id} />
     </div>
   );
 };
 
-export const VenueActions = ({ user }) => {
+export const VenueActions = ({ user, venueId }) => {
   const Controls = () => {
     if (!user) {
       return (
@@ -53,7 +53,7 @@ export const VenueActions = ({ user }) => {
       return (
         <div className="flex justify-around">
           <Link
-            to="/manage"
+            to={`/manage/${venueId}`}
             className="w-1/3 bg-green hover:bg-greenHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl text-center"
           >
             Manage
