@@ -3,6 +3,8 @@ import Layout from "./components/layout/Layout";
 import Home from "./routes/Home";
 import ErrorPage from "./routes/ErrorPage";
 import Venues from "./routes/Venues";
+import { Venue } from "./routes/Venue";
+import { Booking } from "./routes/Booking";
 import Profile from "./routes/Profile";
 import { Login } from "./routes/Login";
 import Register from "./routes/Register";
@@ -19,6 +21,8 @@ function App() {
         {/* <Route path="/" element={<Layout />}> */}
         <Route index element={<Home />} />
         <Route path="/venues" element={<Venues />} />
+        <Route path="/venue/:venueId" element={<Venue />} />
+        <Route path="/booking/:venueId" element={<Booking />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

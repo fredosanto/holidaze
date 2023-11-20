@@ -44,9 +44,13 @@ export const VenueActions = ({ user, venueId }) => {
   const Controls = () => {
     if (!user) {
       return (
-        <button className="bg-red w-1/2 py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl">
+        <Link
+          // to={`/venue/${venueId}`}
+          to={`/venue/${venueId}`}
+          className="bg-red w-1/2 py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
+        >
           View venue
-        </button>
+        </Link>
       );
     }
     if (user.venueManager) {
