@@ -10,6 +10,7 @@ export default {
       red: "#F8C9CC",
       redHover: "#D17B81",
       light: "#F7F5F3",
+      grey: "#CCCCCC",
       black: "#000000",
       white: "#FFFFFF",
       disabled: "#EEEEEE",
