@@ -44,7 +44,15 @@ function Venues() {
   }
 
   return (
-    <div>
+    <div className="m-10">
+      <div className="bg-grey p-10">
+        <h2>Search for venue</h2>
+        <input
+          type="search"
+          placeholder="Search name, city, country"
+          className="p-2 w-1/2"
+        />
+      </div>
       {venues.map((venue) => (
         <Venue key={venue.id} venue={venue} />
       ))}
