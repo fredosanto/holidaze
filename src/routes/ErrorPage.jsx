@@ -1,6 +1,6 @@
 import { useRouteError, isRouteErrorResponse, Link } from "react-router-dom";
 
-function ErrorPage() {
+function ErrorPage({ errorMessage }) {
   const error = useRouteError();
   console.error(error);
 
@@ -9,6 +9,7 @@ function ErrorPage() {
       <div className="h-screen">
         <div>
           <h1>Oops!</h1>
+          <p>{errorMessage}</p>
           <p>Sorry, an unexpected error has occured. Status: {error.status}</p>
           <p>{error.statusText}</p>
           <Link to="/" className="underline">
