@@ -1,40 +1,22 @@
 import { useParams } from "react-router";
-import { useEffect, useState } from "react";
-import { getSingleVenue } from "../api/venues/getSingleVenue";
+import { useFetch } from "../hooks/useFetch";
 import ErrorPage from "./ErrorPage";
 import Loading from "../components/Loading";
 import { SingleVenue } from "../components/cards/singleVenue/SingleVenue";
+import { API } from "../api/enpoints";
 
 export function Venue() {
   const { venueId } = useParams();
-  const [venue, setVenue] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsError(false);
-        setIsLoading(true);
-
-        const data = await getSingleVenue(venueId);
-        setVenue(data);
-
-        setIsLoading(false);
-      } catch (err) {
-        setIsLoading(false);
-        setIsError(true);
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, []);
+  const urlParameters = "?_owner=true&_bookings=true";
+  const url = `${API.venues.id(venueId).$ + urlParameters}`;
+  const { data: venue, isLoading, error } = useFetch(url);
 
   if (isLoading) {
     return <Loading />;
   }
 
-  if (isError) {
+  if (error) {
+    console.log(error);
     return <ErrorPage />;
   }
 

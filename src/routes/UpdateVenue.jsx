@@ -1,47 +1,29 @@
-import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getSingleVenue } from "../api/venues/getSingleVenue";
+import { API } from "../api/enpoints";
+import { useFetch } from "../hooks/useFetch";
 import { UpdateForm } from "../components/admin/UpdateForm";
 import ErrorPage from "./ErrorPage";
 import Loading from "../components/Loading";
 
 export function UpdateVenue() {
-  const [singleVenue, setSingleVenue] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
   const { venueId } = useParams();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsError(false);
-        setIsLoading(true);
-
-        const data = await getSingleVenue(venueId);
-        setSingleVenue(data);
-
-        setIsLoading(false);
-      } catch (err) {
-        setIsLoading(false);
-        setIsError(true);
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, []);
+  const urlParameters = "?_owner=true&_bookings=true";
+  const url = `${API.venues.id(venueId).$ + urlParameters}`;
+  const { data: venue, isLoading, error } = useFetch(url);
 
   if (isLoading) {
     return <Loading />;
   }
 
-  if (isError) {
+  if (error) {
+    console.log(error);
     return <ErrorPage />;
   }
 
   return (
     <div>
       <h1>Update Venue</h1>
-      <UpdateForm venue={singleVenue} venueId={venueId} />
+      <UpdateForm venue={venue} venueId={venueId} />
       <Link to="/profile">Go back to profile</Link>
     </div>
   );

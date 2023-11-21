@@ -1,44 +1,23 @@
 import ProfileCard from "../components/cards/ProfileCard";
 import Loading from "../components/Loading";
 import ErrorPage from "./ErrorPage";
-import { useEffect, useState } from "react";
 import { user } from "../api/auth/index.mjs";
-import { profileVenues } from "../api/venues/profileVenues";
+import { useFetchProfileVenues } from "../hooks/useFetchProfileVenues";
+import { API } from "../api/enpoints";
 import { AdminVenues } from "../components/cards/AdminVenues";
 import { ProfileBooking } from "../components/cards/ProfileBookings";
 
 function Profile() {
   const userProfile = user();
-
-  const [venues, setVenues] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-
-  useEffect(() => {
-    async function getProfileVenues() {
-      try {
-        setIsError(false);
-        setIsLoading(true);
-
-        const data = await profileVenues(userProfile.name);
-        setVenues(data);
-
-        setIsLoading(false);
-      } catch (err) {
-        setIsLoading(false);
-        setIsError(true);
-        console.log(err);
-      }
-    }
-
-    getProfileVenues();
-  }, []);
+  const url = API.profiles.name(userProfile.name).venues;
+  const { data: venues, isLoading, error } = useFetchProfileVenues(url);
 
   if (isLoading) {
     return <Loading />;
   }
 
-  if (isError) {
+  if (error) {
+    console.log(error);
     return <ErrorPage />;
   }
 
