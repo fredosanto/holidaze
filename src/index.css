@@ -53,3 +53,8 @@ p {
 b {
   font-weight: 600;
 }
+
+input {
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+}
