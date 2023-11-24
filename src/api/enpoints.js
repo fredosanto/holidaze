@@ -30,8 +30,8 @@ export const API = {
       };
     },
   },
-  booking: {
-    $: base + "bookings",
+  bookings: {
+    $: base + "/bookings",
     id: (id) => {
       const bookingsBase = base + "/bookings/" + id;
       return {

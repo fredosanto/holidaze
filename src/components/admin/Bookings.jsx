@@ -1,23 +1,25 @@
 import { useEffect, useState } from "react";
+import { CustomerBooking } from "../cards/CustomerBooking";
 
-export function Bookings({ venueBookings }) {
+export function Bookings({ venue }) {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-    setBookings(venueBookings);
-  }, []);
-  console.log(bookings);
+    setBookings(venue.bookings);
+  }, [venue]);
+
   return (
     <div>
-      {bookings.map((booking) => (
-        <div key={booking.id}>
-          <h2>Booking: {booking.id}</h2>
-          <p>
-            Date: {booking.dateFrom} to {booking.dateTo}
-          </p>
-          <p>Guests: {booking.guests}</p>
-        </div>
-      ))}
+      <h2 className="text-xl">Bookings on venue</h2>
+      <div className="bg-light rounded-lg">
+        {bookings.length > 0 ? (
+          bookings.map((booking) => (
+            <CustomerBooking key={booking.id} id={booking.id} />
+          ))
+        ) : (
+          <div>No bookings yet...</div>
+        )}
+      </div>
     </div>
   );
 }

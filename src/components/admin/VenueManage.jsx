@@ -4,7 +4,7 @@ import VenueImage from "../cards/venue/VenueImage";
 export function VenueManage({ venue }) {
   return (
     <div className="my-10 mx-2 sm:w-3/4 md:w-1/2">
-      <div className="bg-light">
+      <div className="">
         <VenueImage
           image={venue?.media}
           name={venue.name}
@@ -17,7 +17,7 @@ export function VenueManage({ venue }) {
       </div>
       <Link
         to={`/update/${venue.id}`}
-        className="w-1/3 bg-blue hover:bg-blueHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl text-center"
+        className="block w-1/3 my-2 mx-auto py-4 px-2 bg-blue hover:bg-blueHover rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl text-center"
       >
         Update Venue
       </Link>

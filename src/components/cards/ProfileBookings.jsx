@@ -1,23 +1,25 @@
 import { useEffect, useState } from "react";
+import { userBooking } from "../../api/booking/userBookings";
 import { API } from "../../api/enpoints";
+import { CustomerBooking } from "./CustomerBooking";
+import { Reservation } from "./Reservation";
 
 export function ProfileBooking({ username }) {
-  console.log(username);
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
     async function getBookings() {
-      const url = API.profiles.name(username).bookings;
+      const urlParameters = "?_venue=true";
+      const url = `${API.profiles.name(username).bookings + urlParameters}`;
       try {
-        const response = await fetch(url);
-        const res = await response.json();
-        setBookings(res);
+        const data = await userBooking(url);
+        setBookings(data);
       } catch (err) {
         console.log(err);
       }
     }
-    getBookings;
-  });
+    getBookings();
+  }, [username]);
 
   if (bookings.length <= 0) {
     return (
@@ -30,10 +32,14 @@ export function ProfileBooking({ username }) {
 
   return (
     <div>
-      <h1>{username}</h1>
-      {bookings.map((booking) => (
-        <div key={booking.id}>{booking.id}</div>
-      ))}
+      <h2 className="my-5">Upcoming reservations</h2>
+      <div className="flex flex-col gap-10">
+        {bookings.map((booking) => (
+          // <div key={booking.id}>{booking.id}</div>
+          // <CustomerBooking key={booking.id} id={booking.id} />
+          <Reservation key={booking.id} reservation={booking} />
+        ))}
+      </div>
     </div>
   );
 }

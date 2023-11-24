@@ -6,6 +6,7 @@ import Venues from "./routes/Venues";
 import { Venue } from "./routes/Venue";
 import { Booking } from "./routes/Booking";
 import Profile from "./routes/Profile";
+import { Admin } from "./routes/Admin";
 import { Login } from "./routes/Login";
 import Register from "./routes/Register";
 import Avatar from "./routes/Avatar";
@@ -24,6 +25,7 @@ function App() {
         <Route path="/venue/:venueId" element={<Venue />} />
         <Route path="/booking/:venueId" element={<Booking />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/admin" element={<Admin />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/avatar" element={<Avatar />} />
