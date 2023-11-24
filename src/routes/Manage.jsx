@@ -22,16 +22,14 @@ export function Manage() {
     return <ErrorPage />;
   }
 
-  console.log(venue);
   return (
-    <div className="h-screen">
-      <h1>Manage Venue</h1>
-      <h2>{venue.name}</h2>
+    <div className="h-screen m-5">
+      <h1 className="text-2xl">Manage Venue</h1>
       <p>Here you can manage your venue and see all bookings</p>
       <VenueManage venue={venue} />
-      <Bookings venueBookings={venue.bookings} />
-      <Link to="/profile" className="underline">
-        Go back to profile
+      <Bookings venue={venue} />
+      <Link to="/admin" className="underline">
+        Go back to venues
       </Link>
     </div>
   );

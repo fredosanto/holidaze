@@ -29,9 +29,11 @@ function Venues() {
           className="p-2 w-1/2"
         />
       </div>
-      {venues.map((venue) => (
-        <Venue key={venue.id} venue={venue} />
-      ))}
+      <div className="my-10 grid gap-10">
+        {venues.map((venue) => (
+          <Venue key={venue.id} venue={venue} />
+        ))}
+      </div>
     </div>
   );
 }
