@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
+import { isOnline } from "../../../api/auth/status";
 
 function Services({ maxGuests, wifi, parking, breakfast, pets }) {
-  console.log(wifi);
   return (
     <div>
       <p>{maxGuests} guests</p>
@@ -13,7 +13,16 @@ function Services({ maxGuests, wifi, parking, breakfast, pets }) {
   );
 }
 
+function VenueMedia({ image, alt }) {
+  return (
+    <div>
+      <img src={image} alt={alt} />
+    </div>
+  );
+}
+
 export function SingleVenue({ venue }) {
+  const userStatus = isOnline();
   return (
     <>
       <div className="flex flex-col">
@@ -33,12 +42,27 @@ export function SingleVenue({ venue }) {
             <p>{venue.meta?.breakfast}</p>
           </div>
         </div>
-        <Link
+        {userStatus ? (
+          <Link
+            to={`/booking/${venue.id}`}
+            className=" bg-blue hover:bg-blueHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
+          >
+            Check available dates
+          </Link>
+        ) : (
+          <Link
+            to={`/login`}
+            className=" bg-blue hover:bg-blueHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
+          >
+            Login to book dates
+          </Link>
+        )}
+        {/* <Link
           to={`/booking/${venue.id}`}
           className=" bg-blue hover:bg-blueHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
         >
           Check available dates
-        </Link>
+        </Link> */}
       </div>
       <Services
         maxGuests={venue.maxGuests}
@@ -47,7 +71,16 @@ export function SingleVenue({ venue }) {
         breakfast={venue.meta?.breakfast}
         pets={venue.meta?.pets}
       />
-      <img src={venue.media} alt={venue.name} />
+      <div className="flex flex-col gap-5">
+        {venue.media.length >= 0 ? (
+          venue.media.map((image, index) => (
+            <VenueMedia key={index} image={image} alt={venue.name} />
+          ))
+        ) : (
+          <div>No images available</div>
+        )}
+        {/* // <img src={venue.media} alt={venue.name} /> */}
+      </div>
     </>
   );
 }

@@ -4,7 +4,6 @@ import ErrorPage from "./ErrorPage";
 import { user } from "../api/auth/index.mjs";
 import { useFetchProfileVenues } from "../hooks/useFetchProfileVenues";
 import { API } from "../api/enpoints";
-import { AdminVenues } from "../components/cards/AdminVenues";
 import { ProfileBooking } from "../components/cards/ProfileBookings";
 
 function Profile() {
@@ -21,9 +20,6 @@ function Profile() {
     return <ErrorPage />;
   }
 
-  // console.log(venues);
-  console.log(userProfile.venueManager);
-
   return (
     <div>
       <h1>Profile</h1>
@@ -35,11 +31,9 @@ function Profile() {
           venueManager={userProfile.venueManager}
         />
       ) : null}
-      {userProfile.venueManager ? (
-        <AdminVenues venues={venues} />
-      ) : (
+      <div className="my-10">
         <ProfileBooking username={userProfile.name} />
-      )}
+      </div>
     </div>
   );
 }
