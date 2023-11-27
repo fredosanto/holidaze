@@ -17,6 +17,8 @@ export async function makeBooking(formData) {
 
     const res = await response.json();
     console.log(res);
+    alert("Reservation is made");
+    location.assign("/profile");
   } catch (err) {
     console.log(err);
   }
