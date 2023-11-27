@@ -8,7 +8,7 @@ export function Reservation({ reservation }) {
 
   return (
     <div>
-      <h3>Reservation nr: {reservation.venue.id}</h3>
+      <h3>Reservation nr: {reservation.id}</h3>
       <Venue
         key={reservation.venue.id}
         venue={reservation.venue}

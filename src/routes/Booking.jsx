@@ -11,14 +11,19 @@ import "react-datepicker/dist/react-datepicker.css";
 
 export function Booking() {
   const { venueId } = useParams();
-  const urlParameters = "?_owner=true&_bookings=true";
+  const urlParameters = "?_owner=true&_bookings=true&_customer=true";
   const url = `${API.venues.id(venueId).$ + urlParameters}`;
   const { data: venue, isLoading, error } = useFetch(url);
   //   const [date, setDate] = useState(new Date());
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  // const [startDate, setStartDate] = useState(new Date());
+  // const [endDate, setEndDate] = useState(new Date());
   //   const [startDate, setStartDate] = useState(new Date());
   //   const [endDate, setEndDate] = useState(null);
+
+  const [dateRange, setDataRange] = useState([null, null]);
+  const [startDate, endDate] = dateRange;
+
+  console.log(venue);
 
   const {
     control,
@@ -30,10 +35,8 @@ export function Booking() {
   function bookingData(data) {
     console.log(data);
     const formData = {
-      dateFrom: data.dateFrom,
-      //   dateFrom: JSON.stringify(data.dateFrom).slice(0, 11),
-      dateTo: data.dateTo,
-      //   dateTo: JSON.stringify(data.dateTo).slice(0, 11),
+      dateFrom: data.DatePicker[0],
+      dateTo: data.DatePicker[1],
       guests: Number(data.guests),
       venueId: venueId,
     };
@@ -65,6 +68,38 @@ export function Booking() {
       >
         <div className="bg-light">
           <Controller
+            control={control}
+            name="DatePicker"
+            rules={{ required: true }}
+            //   defaultValue={null}
+            render={({ field: { onChange } }) => (
+              <>
+                <DatePicker
+                  selectsRange={true}
+                  minDate={new Date()}
+                  startDate={startDate}
+                  endDate={endDate}
+                  onChange={(update) => {
+                    setDataRange(update);
+                    onChange(update);
+                  }}
+                  isClearable={true}
+                  inline
+                  // withPortal
+                />
+                <p>Maximum guests for this booking: {venue.maxGuests}</p>
+                <label>How many guests for this booking?</label>
+                <input
+                  {...register("guests", { required: true })}
+                  type="number"
+                  required
+                  max={venue.maxGuests}
+                  className="block"
+                />
+              </>
+            )}
+          />
+          {/* <Controller
             control={control}
             name="dateFrom"
             render={({ field }) => (
@@ -101,17 +136,17 @@ export function Booking() {
                 form="bookingForm"
               />
             )}
-          />
+          /> */}
 
-          <p>Maximum guests for this booking: {venue.maxGuests}</p>
+          {/* <p>Maximum guests for this booking: {venue.maxGuests}</p>
           <label>How many guests for this booking?</label>
           <input
-            {...register("guests", { requierd: true })}
+            {...register("guests", { required: true })}
             type="number"
             required
             max={venue.maxGuests}
             className="block"
-          />
+          /> */}
           <button
             type="submit"
             className="bg-blue hover:bg-blueHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"

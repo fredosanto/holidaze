@@ -5,6 +5,7 @@ import ErrorPage from "./routes/ErrorPage";
 import Venues from "./routes/Venues";
 import { Venue } from "./routes/Venue";
 import { Booking } from "./routes/Booking";
+import { UpdateBooking } from "./routes/UpdateBooking";
 import Profile from "./routes/Profile";
 import { Admin } from "./routes/Admin";
 import { Login } from "./routes/Login";
@@ -24,6 +25,7 @@ function App() {
         <Route path="/venues" element={<Venues />} />
         <Route path="/venue/:venueId" element={<Venue />} />
         <Route path="/booking/:venueId" element={<Booking />} />
+        <Route path="/reservation/:bookingId" element={<UpdateBooking />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/login" element={<Login />} />
