@@ -23,18 +23,20 @@ export function Venue() {
   console.log(venue);
 
   return (
-    <div className="m-10">
-      <div
-        className="flex h-72 bg-center bg-contain bg-no-repeat"
+    <div className="my-10">
+      <header
+        className="flex h-72 w-screen bg-cover bg-no-repeat bg p-5"
         style={{ backgroundImage: `url(${venue.media?.[0]})` }}
       >
-        <div className="m-auto bg-black p-5 bg-opacity-80 rounded-lg">
-          <h1 className=" text-white bg-opacity-100 text-center w-auto text-lg">
+        <div className="m-auto bg-black p-10 bg-opacity-80 rounded-lg">
+          <p className=" text-white bg-opacity-100 text-center w-auto text-xl max-w-lg uppercase font-bold">
             Welcome to amazing {venue.name}
-          </h1>
+          </p>
         </div>
+      </header>
+      <div className="my-10 m-auto max-w-2xl">
+        <SingleVenue venue={venue} />
       </div>
-      <SingleVenue venue={venue} />
     </div>
   );
 }

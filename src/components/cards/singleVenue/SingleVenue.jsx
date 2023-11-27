@@ -25,10 +25,12 @@ export function SingleVenue({ venue }) {
   const userStatus = isOnline();
   return (
     <>
-      <div className="flex flex-col">
-        <h2>{venue.name}</h2>
+      <div className="flex flex-col gap-2">
         <div>
-          {venue.location?.city}, {venue.location?.country}
+          <h1>{venue.name}</h1>
+          <p>
+            {venue.location?.city}, {venue.location?.country}
+          </p>
         </div>
         <p>{venue.description}</p>
         <div className="flex justify-between">
