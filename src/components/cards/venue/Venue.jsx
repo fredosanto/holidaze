@@ -82,9 +82,12 @@ export const VenueActions = ({ user, venueId, owner, reservationId }) => {
     }
     return (
       <div className="flex justify-around">
-        <button className=" bg-green hover:bg-greenHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl">
+        <Link
+          to={`/reservation/${reservationId}`}
+          className=" block bg-green hover:bg-greenHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
+        >
           Update booking
-        </button>
+        </Link>
         <button
           onClick={() => deleteItem(deleteBookingUrl)}
           className="bg-red py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
