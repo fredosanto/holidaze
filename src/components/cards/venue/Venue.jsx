@@ -10,7 +10,7 @@ const Location = ({ location }) => {
 
   return (
     <p>
-      <b>Location:</b> {location.country}, {location.city}
+      Location: {location.country}, {location.city}
     </p>
   );
 };
@@ -19,21 +19,21 @@ const Price = ({ price }) => {
   return (
     <div>
       <b className="text-sm">Price per night: </b>
-      <h1 className="text-lg">{price}NOK</h1>
+      <p className="text-lg uppercase font-bold">{price} NOK</p>
     </div>
   );
 };
 
 export const Venue = ({ venue, user, owner, reservationId }) => {
   return (
-    <div className="sm:w-3/4 md:w-1/2">
+    <div className="">
       <div className="bg-light rounded-lg">
         <VenueImage
           image={venue?.media}
           name={venue.name}
           maxGuests={venue.maxGuests}
         />
-        <h2>{venue.name}</h2>
+        <h2>{venue.name ? venue.name : "Venue name not added yet"}</h2>
         <Location location={venue?.location} />
         <Price price={venue.price} />
       </div>
@@ -54,12 +54,14 @@ export const VenueActions = ({ user, venueId, owner, reservationId }) => {
   const Controls = () => {
     if (!user) {
       return (
-        <Link
-          to={`/venue/${venueId}`}
-          className="bg-red w-1/2 py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
-        >
-          View venue
-        </Link>
+        <div>
+          <Link
+            to={`/venue/${venueId}`}
+            className="block my-5 text-center bg-red hover:bg-redHover hover:text-white py-4 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
+          >
+            View venue
+          </Link>
+        </div>
       );
     }
     if (owner) {

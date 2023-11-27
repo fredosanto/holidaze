@@ -6,6 +6,7 @@ import { Reservation } from "./Reservation";
 
 export function ProfileBooking({ username }) {
   const [bookings, setBookings] = useState([]);
+  console.log(bookings);
 
   useEffect(() => {
     async function getBookings() {

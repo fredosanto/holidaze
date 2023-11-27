@@ -4,7 +4,7 @@ function VenueImage({ image, name, maxGuests }) {
       {image.length > 0 ? (
         <img src={image[0]} alt={name} className="object-cover w-full  h-72" />
       ) : (
-        <div className="absolute left-10 top-1/2">Image N/A</div>
+        <div className="absolute left-32 top-1/2">Image N/A</div>
       )}
 
       {maxGuests && (
