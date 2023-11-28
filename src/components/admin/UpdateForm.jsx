@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { updateVenue } from "../../api/venues/updateVenue";
+import { update } from "../../api/auth/update";
+import { API } from "../../api/enpoints";
 
 const schema = yup.object({
   name: yup.string().required("*Please add a name"),
@@ -27,6 +28,7 @@ const schema = yup.object({
 });
 
 export function UpdateForm({ venue, venueId }) {
+  const url = API.venues.id(venueId).$;
   const {
     register: createRegister,
     handleSubmit,
@@ -37,7 +39,7 @@ export function UpdateForm({ venue, venueId }) {
     <div>
       <h1>Add new venue</h1>
       <p>Fields marked with * is required.</p>
-      <form onSubmit={handleSubmit((data) => updateVenue(data, venueId))}>
+      <form onSubmit={handleSubmit((data) => update(data, url))}>
         <div className="formSection general">
           <h2>General information</h2>
           <div className="formInput">

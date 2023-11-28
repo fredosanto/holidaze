@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import VenueImage from "./VenueImage";
+import { API } from "../../../api/enpoints";
+import { deleteItem } from "../../../api/token/delete";
 
 const Location = ({ location }) => {
   if (!location?.country ?? !location?.city) {
@@ -8,7 +10,7 @@ const Location = ({ location }) => {
 
   return (
     <p>
-      <b>Location:</b> {location.country}, {location.city}
+      Location: {location.country}, {location.city}
     </p>
   );
 };
@@ -16,44 +18,53 @@ const Location = ({ location }) => {
 const Price = ({ price }) => {
   return (
     <div>
-      <b className="text-sm">Price: </b>
-      <h1 className="text-lg">{price}</h1>
+      <b className="text-sm">Price per night: </b>
+      <p className="text-lg uppercase font-bold">{price} NOK</p>
     </div>
   );
 };
 
-export const Venue = ({ venue, user }) => {
+export const Venue = ({ venue, user, owner, reservationId }) => {
   return (
-    <div className="my-10 mx-2 sm:w-3/4 md:w-1/2">
-      <div className="bg-light">
+    <div className="">
+      <div className="bg-light rounded-lg">
         <VenueImage
           image={venue?.media}
           name={venue.name}
           maxGuests={venue.maxGuests}
         />
-        <h2>{venue.name}</h2>
+        <h2>{venue.name ? venue.name : "Venue name not added yet"}</h2>
         <Location location={venue?.location} />
         <Price price={venue.price} />
       </div>
-      <VenueActions user={user} venueId={venue.id} />
+      <VenueActions
+        user={user}
+        venueId={venue.id}
+        owner={owner}
+        reservationId={reservationId}
+      />
     </div>
   );
 };
 
-export const VenueActions = ({ user, venueId }) => {
+export const VenueActions = ({ user, venueId, owner, reservationId }) => {
+  const deleteVenueUrl = API.venues.id(venueId).$;
+  const deleteBookingUrl = API.bookings.id(reservationId).$;
+
   const Controls = () => {
     if (!user) {
       return (
-        <Link
-          // to={`/venue/${venueId}`}
-          to={`/venue/${venueId}`}
-          className="bg-red w-1/2 py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
-        >
-          View venue
-        </Link>
+        <div>
+          <Link
+            to={`/venue/${venueId}`}
+            className="block my-5 text-center bg-red hover:bg-redHover hover:text-white py-4 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
+          >
+            View venue
+          </Link>
+        </div>
       );
     }
-    if (user.venueManager) {
+    if (owner) {
       return (
         <div className="flex justify-around">
           <Link
@@ -62,7 +73,10 @@ export const VenueActions = ({ user, venueId }) => {
           >
             Manage
           </Link>
-          <button className="w-1/3 bg-red hover:bg-redHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl">
+          <button
+            onClick={() => deleteItem(deleteVenueUrl)}
+            className="w-1/3 bg-red hover:bg-redHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
+          >
             Delete
           </button>
         </div>
@@ -70,10 +84,16 @@ export const VenueActions = ({ user, venueId }) => {
     }
     return (
       <div className="flex justify-around">
-        <button className=" bg-green hover:bg-greenHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl">
+        <Link
+          to={`/reservation/${reservationId}`}
+          className=" block bg-green hover:bg-greenHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
+        >
           Update booking
-        </button>
-        <button className="bg-red py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl">
+        </Link>
+        <button
+          onClick={() => deleteItem(deleteBookingUrl)}
+          className="bg-red py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
+        >
           Cancel
         </button>
       </div>

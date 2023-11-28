@@ -1,9 +1,7 @@
-import { API } from "../enpoints";
-// import { user } from "../auth/index.mjs";
 import { load } from "../token/index.mjs";
 
-export async function updateVenue(venueData, venueId) {
-  const url = API.venues.id(venueId).$;
+export async function update(venueData, url) {
+  console.log(venueData);
   try {
     const response = await fetch(url, {
       method: "PUT",
@@ -16,7 +14,7 @@ export async function updateVenue(venueData, venueId) {
 
     const res = await response.json();
     console.log(res);
-    alert("Venue updated");
+    alert("Updated");
     location.assign("/profile");
   } catch (err) {
     console.log(err);

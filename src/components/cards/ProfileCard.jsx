@@ -18,12 +18,25 @@ function ProfileCard({ avatar, name, email, venueManager }) {
           <p>{email}</p>
           <p>Admin access: {venueManager ? "Yes" : "No"}</p>
         </div>
-        <button
-          onClick={useLogout}
-          className="bg-blue hover:bg-blueHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
-        >
-          Logout
-        </button>
+        <div className="flex flex-col gap-2">
+          {venueManager ? (
+            <Link
+              to="/admin"
+              className="block bg-blue hover:bg-blueHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
+            >
+              Admin
+            </Link>
+          ) : (
+            ""
+          )}
+
+          <button
+            onClick={useLogout}
+            className="bg-red hover:bg-redHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
+          >
+            Logout
+          </button>
+        </div>
       </div>
     </div>
   );
