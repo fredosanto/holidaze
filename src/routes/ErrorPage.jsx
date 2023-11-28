@@ -1,24 +1,25 @@
 import { useRouteError, isRouteErrorResponse, Link } from "react-router-dom";
 
-function ErrorPage({ errorMessage }) {
-  const error = useRouteError();
-  console.error(error);
+function ErrorPage() {
+  console.log("hmmm");
+  // const error = useRouteError();
+  // console.error(error);
 
-  if (isRouteErrorResponse(error)) {
-    return (
-      <div className="h-screen">
-        <div>
-          <h1>Oops!</h1>
-          <p>{errorMessage}</p>
-          <p>Sorry, an unexpected error has occured. Status: {error.status}</p>
-          <p>{error.statusText}</p>
-          <Link to="/" className="underline">
-            Go back to homepage
-          </Link>
-        </div>
-      </div>
-    );
-  }
+  // if (isRouteErrorResponse(error)) {
+  //   return (
+  //     <div className="h-screen">
+  //       <div>
+  //         <h1>Oops!</h1>
+  //         <p>{errorMessage}</p>
+  //         <p>Sorry, an unexpected error has occured. Status: {error.status}</p>
+  //         <p>{error.statusText}</p>
+  //         <Link to="/" className="underline">
+  //           Go back to homepage
+  //         </Link>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="flex items-center justify-center h-screen bg-light">
