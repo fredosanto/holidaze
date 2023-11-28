@@ -1,8 +1,9 @@
 import { Venue } from "../components/cards/venue/Venue";
 import Loading from "../components/Loading";
+import ErrorPage from "./ErrorPage";
 import { useFetch } from "../hooks/useFetch";
 import { API } from "../api/enpoints";
-import ErrorPage from "./ErrorPage";
+import { Typeahead } from "../components/Typeahead";
 
 function Venues() {
   const urlParameters =
@@ -10,7 +11,6 @@ function Venues() {
   const url = `${API.venues.$ + urlParameters}`;
   const { data: venues, isLoading, error } = useFetch(url);
 
-  // const header = "Book the best rated venues here!";
   const image =
     "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
@@ -38,11 +38,7 @@ function Venues() {
       <div className="my-10 m-auto max-w-7xl">
         <div className="bg-grey p-5 py-10 my-10 m-auto md:rounded-lg w-full sm:max-w-xl">
           <h2 className="text-center mb-5">Search for venue</h2>
-          <input
-            type="search"
-            placeholder="Search name, city, country"
-            className="p-2 w-full rounded-lg"
-          />
+          <Typeahead />
         </div>
         <h1 className="my-10 text-center md:m-10 md:text-left">
           Choose your venue
