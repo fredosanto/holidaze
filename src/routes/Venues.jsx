@@ -4,15 +4,20 @@ import ErrorPage from "./ErrorPage";
 import { useFetch } from "../hooks/useFetch";
 import { API } from "../api/enpoints";
 import { Typeahead } from "../components/Typeahead";
+import { useState } from "react";
 
 function Venues() {
-  const urlParameters =
-    "?sort=created&sortOrder=desc&limit=10&_owner=true&_bookings=true";
+  const [pagination, setPagination] = useState(10);
+  const urlParameters = `?sort=created&sortOrder=desc&limit=${pagination}&_owner=true&_bookings=true`;
   const url = `${API.venues.$ + urlParameters}`;
   const { data: venues, isLoading, error } = useFetch(url);
 
   const image =
     "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+
+  function handlePagination() {
+    setPagination(pagination + 10);
+  }
 
   if (isLoading) {
     return <Loading />;
@@ -48,6 +53,12 @@ function Venues() {
             <Venue key={venue.id} venue={venue} />
           ))}
         </div>
+        <button
+          onClick={() => handlePagination()}
+          className="block mx-auto bg-green hover:bg-greenHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
+        >
+          View more venues
+        </button>
       </div>
     </>
   );
