@@ -2,21 +2,11 @@ import { NavLink } from "react-router-dom";
 import { useLogout } from "../../../api/auth/index.mjs";
 import { useState, useEffect } from "react";
 import { isOnline } from "../../../api/auth/index.mjs";
-import { boolean } from "yup";
 import menuIcon from "../../../assets/menu-outline.svg";
 import closeIcon from "../../../assets/close-outline.svg";
 
 function Nav() {
-  const status = isOnline();
-  const [isOnlineStatus, setIsOnlineStatus] = useState(boolean);
-
-  useEffect(() => {
-    if (status) {
-      setIsOnlineStatus(true);
-    } else {
-      setIsOnlineStatus(false);
-    }
-  }, [status]);
+  const isLoggedIn = isOnline();
 
   function MenuClick(e) {
     let navList = document.getElementById("nav-list");
@@ -27,8 +17,7 @@ function Nav() {
         (e.target.src = closeIcon),
         navList.classList.add("opacity-100"),
         navList.classList.add("top-[80px]"),
-        // navList.classList.remove("invisible"),
-        // navList.classList.add("visible")
+        navList.classList.remove("invisible")
       );
     }
 
@@ -37,8 +26,7 @@ function Nav() {
         (e.target.name = "menu") && (e.target.src = menuIcon),
         navList.classList.remove("opacity-100"),
         navList.classList.add("top-[80px]"),
-        // navList.classList.remove("visible"),
-        // navList.classList.add("invisible")
+        navList.classList.add("invisible")
       );
     }
   }
@@ -65,7 +53,7 @@ function Nav() {
       <div className="">
         <ul
           id="nav-list"
-          className="flex flex-col md:flex-row gap-5 md:gap-10 items-center bg-black md:bg-red text-white md:text-black w-full md:w-auto p-5 md:p-0 z-[1] md:z-auto md:static absolute left-0 opacity-0 md:opacity-100 transition-all ease-in-out duration-500"
+          className="flex flex-col md:flex-row gap-5 md:gap-10 items-center bg-black md:bg-red text-white md:text-black w-full md:w-auto p-5 md:p-0 z-[2] md:z-auto md:static absolute left-0 opacity-0 md:opacity-100 invisible md:visible transition-all ease-in-out duration-300"
         >
           <li>
             <NavLink to="/">Home</NavLink>
@@ -85,7 +73,7 @@ function Nav() {
               </NavLink>
             )}
           </li>
-          {isOnlineStatus ? (
+          {isLoggedIn ? (
             <li>
               <button
                 onClick={useLogout}
