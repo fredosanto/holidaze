@@ -8,6 +8,8 @@ import Loading from "../components/Loading";
 import ErrorPage from "./ErrorPage";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { array, date, number, object } from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 export function Booking() {
   const { venueId } = useParams();
@@ -25,18 +27,28 @@ export function Booking() {
 
   console.log(venue);
 
+  const venueSchema = object({
+    datePicker: array()
+      .length(2)
+      .required("Please add booking date from and to")
+      .of(date().required("Please choose a date for both dates")),
+    guests: number().required(),
+  });
+
   const {
     control,
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
-  } = useForm();
+  } = useForm({ resolver: yupResolver(venueSchema) });
 
-  function bookingData(data) {
+  function formatBookingData(data) {
+    console.log("-------------------");
     console.log(data);
     const formData = {
-      dateFrom: data.DatePicker[0],
-      dateTo: data.DatePicker[1],
+      dateFrom: data.datePicker[0],
+      dateTo: data.datePicker[1],
       guests: Number(data.guests),
       venueId: venueId,
     };
@@ -52,6 +64,14 @@ export function Booking() {
     console.log(error);
     return <ErrorPage />;
   }
+
+  console.log(errors);
+  console.log("getvalues ", getValues());
+  const datesToExclude = venue.bookings?.map((booking) => ({
+    start: new Date(booking.dateFrom),
+    end: new Date(booking.dateTo),
+  }));
+
   return (
     <div>
       <h1>Pick Dates</h1>
@@ -62,83 +82,33 @@ export function Booking() {
         <div className="w-4 h-4 rounded-full bg-redHover"></div>
         <p>Dates not available for booking</p>
       </div>
-      <form
-        id="bookingForm"
-        onSubmit={handleSubmit((data) => bookingData(data))}
-      >
+      <form id="bookingForm" onSubmit={handleSubmit(formatBookingData)}>
         <div className="bg-light">
           <Controller
             control={control}
-            name="DatePicker"
+            name="datePicker"
             rules={{ required: true }}
             //   defaultValue={null}
             render={({ field: { onChange } }) => (
-              <>
-                <DatePicker
-                  selectsRange={true}
-                  minDate={new Date()}
-                  startDate={startDate}
-                  endDate={endDate}
-                  onChange={(update) => {
-                    setDataRange(update);
-                    onChange(update);
-                  }}
-                  isClearable={true}
-                  inline
-                  // withPortal
-                />
-                <p>Maximum guests for this booking: {venue.maxGuests}</p>
-                <label>How many guests for this booking?</label>
-                <input
-                  {...register("guests", { required: true })}
-                  type="number"
-                  required
-                  max={venue.maxGuests}
-                  className="block"
-                />
-              </>
-            )}
-          />
-          {/* <Controller
-            control={control}
-            name="dateFrom"
-            render={({ field }) => (
               <DatePicker
-                selected={startDate}
-                selectsStart
-                startDate={startDate}
+                selectsRange={true}
                 minDate={new Date()}
-                // endDate={endDate}
-                onChange={(startDate) =>
-                  field.onChange(startDate) && setStartDate(startDate)
-                }
+                startDate={startDate}
+                endDate={endDate}
+                onChange={(update) => {
+                  setDataRange(update);
+                  onChange(update);
+                }}
+                excludeDateIntervals={datesToExclude}
+                // excludeDates={venue.bookings}
+                isClearable={true}
                 inline
-                required
-                form="bookingForm"
+                // withPortal
               />
             )}
           />
-          <Controller
-            control={control}
-            name="dateTo"
-            render={({ field }) => (
-              <DatePicker
-                selected={endDate}
-                selectsEnd
-                startDate={() => startDate}
-                minDate={startDate}
-                // endDate={endDate}
-                onChange={(endDate) =>
-                  field.onChange(endDate) && setEndDate(endDate)
-                }
-                inline
-                required
-                form="bookingForm"
-              />
-            )}
-          /> */}
-
-          {/* <p>Maximum guests for this booking: {venue.maxGuests}</p>
+          <p>{errors.datePicker?.message || errors.datePicker?.[1].message}</p>
+          <p>Maximum guests for this booking: {venue.maxGuests}</p>
           <label>How many guests for this booking?</label>
           <input
             {...register("guests", { required: true })}
@@ -146,7 +116,8 @@ export function Booking() {
             required
             max={venue.maxGuests}
             className="block"
-          /> */}
+          />
+          <p>{errors.guests?.message}</p>
           <button
             type="submit"
             className="bg-blue hover:bg-blueHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
