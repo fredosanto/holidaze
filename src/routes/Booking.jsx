@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useParams } from "react-router";
 import { useFetch } from "../hooks/useFetch";
+import { Link } from "react-router-dom";
 import { API } from "../api/enpoints";
 import { makeBooking } from "../api/booking/makeBooking";
 import Loading from "../components/Loading";
@@ -16,11 +17,6 @@ export function Booking() {
   const urlParameters = "?_owner=true&_bookings=true&_customer=true";
   const url = `${API.venues.id(venueId).$ + urlParameters}`;
   const { data: venue, isLoading, error } = useFetch(url);
-  //   const [date, setDate] = useState(new Date());
-  // const [startDate, setStartDate] = useState(new Date());
-  // const [endDate, setEndDate] = useState(new Date());
-  //   const [startDate, setStartDate] = useState(new Date());
-  //   const [endDate, setEndDate] = useState(null);
 
   const [dateRange, setDataRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
@@ -126,6 +122,9 @@ export function Booking() {
           </button>
         </div>
       </form>
+      <Link to={`/venue/${venueId}`} className="underline">
+        Go back to venue page
+      </Link>
     </div>
   );
 }
