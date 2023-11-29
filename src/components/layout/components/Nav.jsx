@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useLogout } from "../../../api/auth/index.mjs";
 import { useState, useEffect } from "react";
 import { isOnline } from "../../../api/auth/index.mjs";
@@ -35,9 +36,11 @@ function Nav() {
     <nav className="flex flex-col md:flex-row justify-between bg-red w-full p-5">
       <div className="flex justify-between items-center mx-5">
         <div>
-          <span id="logo" className="text-4xl font-bold">
-            Holidaze
-          </span>
+          <Link to="/">
+            <span id="logo" className="text-4xl font-bold">
+              Holidaze
+            </span>
+          </Link>
         </div>
         <div className="md:hidden block">
           <img
