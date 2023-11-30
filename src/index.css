@@ -35,6 +35,10 @@ nav {
   font-family: "Archivo", Arial, Helvetica, sans-serif;
 }
 
+nav a.active {
+  text-decoration: underline;
+}
+
 h1 {
   font-family: "Nunito Sans", Arial, Helvetica, sans-serif;
   text-transform: uppercase;
