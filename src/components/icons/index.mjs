@@ -15,3 +15,4 @@ export * from "./components/AddIcon";
 export * from "./components/BinIcon";
 export * from "./components/EditIcon";
 export * from "./components/BackIcon";
+export * from "./components/SocialMediaIcons";
