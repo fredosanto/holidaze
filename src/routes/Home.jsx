@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { HeaderImage } from "../components/layout/components/HeaderImage";
-import headerBackground from "../assets/images/patrick-robert-doyle-AH8zKXqFITA-unsplash.jpg";
+// import headerBackground from "../assets/images/patrick-robert-doyle-AH8zKXqFITA-unsplash.jpg";
+import headerBackground from "../../public/patrick-robert-doyle-AH8zKXqFITA-unsplash.jpg";
 import { FlexCard } from "../components/layout/components/FlexCard";
 
 function InformationContainer() {
@@ -8,7 +9,7 @@ function InformationContainer() {
     <section
       className="flex bg-cover bg-no-repeat max-w-4xl h-96 m-auto my-10 bg-center md:rounded-lg"
       style={{
-        backgroundImage: `url("/src/assets/images/orva-studio-YC8qqp50BdA-unsplash.jpg")`,
+        backgroundImage: `url("../../public/orva-studio-YC8qqp50BdA-unsplash.jpg")`,
       }}
     >
       <div className="m-auto bg-black p-10 bg-opacity-80 rounded-lg flex flex-col gap-5">

@@ -6,7 +6,7 @@ const ReverseOrder = () => {
       <div className="flex flex-col md:flex-row gap-10 items-center justify-around">
         <div className="basis-1/2 hidden md:block">
           <img
-            src="/src/assets/images/jonas-allert-ZApUkahPK7c-unsplash.jpg"
+            src="../../../../public/jonas-allert-ZApUkahPK7c-unsplash.jpg"
             alt="hotel bed and night table"
             className="md:rounded-lg object-cover max-h-96 min-h-96 min-w-full"
           />
@@ -51,7 +51,7 @@ export function FlexCard({ revert }) {
           </div>
           <div className="basis-1/2">
             <img
-              src="/src/assets/images/rhema-kallianpur-uocSnWMhnAs-unsplash.jpg"
+              src="../../../../public/rhema-kallianpur-uocSnWMhnAs-unsplash.jpg"
               alt="hotel bed and night table"
               className="md:rounded-lg object-cover max-h-96 h-96 min-w-full"
             />

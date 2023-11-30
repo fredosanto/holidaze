@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { useLogout } from "../../../api/auth/index.mjs";
 import { useState, useEffect } from "react";
 import { isOnline } from "../../../api/auth/index.mjs";
-import menuIcon from "../../../assets/menu-outline.svg";
-import closeIcon from "../../../assets/close-outline.svg";
+import menuIcon from "../../../../public/menu-outline.svg";
+import closeIcon from "../../../../public/close-outline.svg";
 
 function Nav() {
   const isLoggedIn = isOnline();
