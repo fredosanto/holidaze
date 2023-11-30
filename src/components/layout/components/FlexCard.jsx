@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 
-const ContentOrder = () => {
+const ReverseOrder = () => {
   return (
     <>
       <div className="flex flex-col md:flex-row gap-10 items-center justify-around">
         <div className="basis-1/2 hidden md:block">
           <img
-            src="/src/assets/images/orva-studio-YC8qqp50BdA-unsplash.jpg"
+            src="/src/assets/images/jonas-allert-ZApUkahPK7c-unsplash.jpg"
             alt="hotel bed and night table"
-            className="rounded-lg"
+            className="md:rounded-lg object-cover max-h-96 min-h-96 min-w-full"
           />
         </div>
         <div className="basis-1/2 text-center flex flex-col gap-5">
@@ -53,12 +53,12 @@ export function FlexCard({ revert }) {
             <img
               src="/src/assets/images/rhema-kallianpur-uocSnWMhnAs-unsplash.jpg"
               alt="hotel bed and night table"
-              className="md:rounded-lg"
+              className="md:rounded-lg object-cover max-h-96 h-96 min-w-full"
             />
           </div>
         </>
       ) : (
-        <ContentOrder />
+        <ReverseOrder />
       )}
       {/* <ContentOrder revert={revert} /> */}
     </div>
