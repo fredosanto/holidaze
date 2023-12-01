@@ -6,7 +6,7 @@ import { update } from "../api/auth/update";
 import { API } from "../api/enpoints";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useFetchReservation } from "../hooks/useFetchReservation";
 import { useFetch } from "../hooks/useFetch";
 import Loading from "../components/Loading";
