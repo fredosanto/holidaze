@@ -28,7 +28,7 @@ const Price = ({ price }) => {
 export const Venue = ({ venue, user, owner, reservationId }) => {
   return (
     <div className="">
-      <div className="bg-light rounded-lg">
+      <div className="bg-light rounded-lg md:hover:scale-[1.02] transition duration-500">
         <Link to={`/venue/${venue.id}`}>
           <VenueImage
             image={venue?.media}
