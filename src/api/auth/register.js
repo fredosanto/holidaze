@@ -14,10 +14,10 @@ export async function register(formData) {
     console.log(data);
 
     if (!response.ok) {
-      throw Error;
+      throw Error(data.errors[0].message);
     }
-    alert("User succesfully registered");
-    window.location.assign("/login");
+    // alert("User succesfully registered");
+    // window.location.assign("/login");
   } catch (error) {
     alert(error.message);
   }
