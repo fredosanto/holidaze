@@ -28,14 +28,16 @@ export const Venue = ({ venue, user, owner, reservationId }) => {
   return (
     <div className="">
       <div className="bg-light rounded-lg">
-        <VenueImage
-          image={venue?.media}
-          name={venue.name}
-          maxGuests={venue.maxGuests}
-        />
-        <h2>{venue.name ? venue.name : "Venue name not added yet"}</h2>
-        <Location location={venue?.location} />
-        <Price price={venue.price} />
+        <Link to={`/venue/${venue.id}`}>
+          <VenueImage
+            image={venue?.media}
+            name={venue.name}
+            maxGuests={venue.maxGuests}
+          />
+          <h2>{venue.name ? venue.name : "Venue name not added yet"}</h2>
+          <Location location={venue?.location} />
+          <Price price={venue.price} />
+        </Link>
       </div>
       <VenueActions
         user={user}
