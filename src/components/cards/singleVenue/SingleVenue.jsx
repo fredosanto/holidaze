@@ -19,8 +19,11 @@ import {
 function Intro({ venue }) {
   const starRow = [];
   for (let i = 0; i < venue.rating; i++) {
-    starRow.push(<StarIcon key={i} />);
+    starRow.push(i);
+    // starRow.push(<StarIcon key={i} />);
   }
+
+  console.log(starRow);
   return (
     <>
       <div>
@@ -42,10 +45,13 @@ function Intro({ venue }) {
           </div>
         </div>
         <div>
-          <div>
+          <div className="flex flex-col items-center">
             <p className="font-medium">Rating</p>
             <div className="flex py-1">
-              {venue.rating ? { starRow } : <p className="m-auto">N/A</p>}
+              {starRow.map((star) => (
+                <StarIcon key={star} />
+              ))}
+              {/* {venue.rating ? { starRow } : <p className="m-auto">N/A</p>} */}
             </div>
           </div>
         </div>
@@ -122,7 +128,7 @@ function Services({ maxGuests, wifi, parking, breakfast, pets }) {
 function VenueMedia({ image, alt }) {
   return (
     <div>
-      <img src={image} alt={alt} className="object-cover w-full" />
+      <img src={image} alt={alt} className="object-cover w-full max-h-96" />
     </div>
   );
 }
