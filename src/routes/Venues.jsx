@@ -5,7 +5,7 @@ import { useFetch } from "../hooks/useFetch";
 import { API } from "../api/enpoints";
 import { Typeahead } from "../components/Typeahead";
 import { useState } from "react";
-import headerBackground from "../../public/roberto-nickson-emqnSQwQQDo-unsplash.jpg";
+import headerBackground from "/roberto-nickson-emqnSQwQQDo-unsplash.jpg";
 import { HeaderImage } from "../components/layout/components/HeaderImage";
 
 function Venues() {

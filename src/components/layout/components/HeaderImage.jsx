@@ -1,4 +1,5 @@
 export function HeaderImage({ image, content }) {
+  // let currentImage = image;
   return (
     <header
       className="flex h-screen bg-cover bg-no-repeat bg p-5"

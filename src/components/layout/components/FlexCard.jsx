@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import firstImg from "/rhema-kallianpur-uocSnWMhnAs-unsplash.jpg";
+import secondImg from "/jonas-allert-ZApUkahPK7c-unsplash.jpg";
 
 const ReverseOrder = () => {
   return (
@@ -6,7 +8,7 @@ const ReverseOrder = () => {
       <div className="flex flex-col md:flex-row gap-10 items-center justify-around">
         <div className="basis-1/2 hidden md:block">
           <img
-            src="../../../../public/jonas-allert-ZApUkahPK7c-unsplash.jpg"
+            src={secondImg}
             alt="hotel bed and night table"
             className="md:rounded-lg object-cover max-h-96 min-h-96 min-w-full"
           />
@@ -51,7 +53,7 @@ export function FlexCard({ revert }) {
           </div>
           <div className="basis-1/2">
             <img
-              src="../../../../public/rhema-kallianpur-uocSnWMhnAs-unsplash.jpg"
+              src={firstImg}
               alt="hotel bed and night table"
               className="md:rounded-lg object-cover max-h-96 h-96 min-w-full"
             />
