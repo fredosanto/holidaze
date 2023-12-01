@@ -21,8 +21,8 @@ function Profile() {
   }
 
   return (
-    <div>
-      <h1>Profile</h1>
+    <div className="flex flex-col items-center my-10">
+      <h1 className="text-2xl">Profile</h1>
       {userProfile ? (
         <ProfileCard
           avatar={userProfile.avatar}
@@ -32,6 +32,10 @@ function Profile() {
         />
       ) : null}
       <div className="my-10">
+        <hr className="my-5 text-grey" />
+        <h2 className="text-xl text-center md:text-left">
+          Upcoming reservations
+        </h2>
         <ProfileBooking username={userProfile.name} />
       </div>
     </div>

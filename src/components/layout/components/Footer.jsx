@@ -24,7 +24,7 @@ function Footer() {
             <p>Country</p>
           </div>
           <div className="flex flex-col gap-1 w-48 text-center items-center">
-            <h4 className="font-medium uppercase underline">Chanels</h4>
+            <h4 className="font-medium uppercase underline">Channels</h4>
             <div className="flex gap-1">
               <FacebookIcon />
               <InstagramIcon />
