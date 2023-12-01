@@ -22,8 +22,6 @@ export function Venue() {
     return <ErrorPage />;
   }
 
-  console.log(venue);
-
   return (
     <>
       <Link to="/venues" className="flex my-2">

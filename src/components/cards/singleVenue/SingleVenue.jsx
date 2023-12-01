@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { isOnline } from "../../../api/auth/status";
-// import { CarIcon } from "../../icons/CarIcon";
+
 import {
   BankCardIcon,
   CalendarIcon,
@@ -8,7 +8,6 @@ import {
   CupIcon,
   GlobeIcon,
   GroupIcon,
-  InfoIcon,
   MailIcon,
   PawIcon,
   ProfileIcon,
@@ -20,10 +19,8 @@ function Intro({ venue }) {
   const starRow = [];
   for (let i = 0; i < venue.rating; i++) {
     starRow.push(i);
-    // starRow.push(<StarIcon key={i} />);
   }
 
-  console.log(starRow);
   return (
     <>
       <div>
@@ -51,7 +48,6 @@ function Intro({ venue }) {
               {starRow.map((star) => (
                 <StarIcon key={star} />
               ))}
-              {/* {venue.rating ? { starRow } : <p className="m-auto">N/A</p>} */}
             </div>
           </div>
         </div>
@@ -67,15 +63,15 @@ function ActionButton({ id }) {
       {userStatus ? (
         <Link
           to={`/booking/${id}`}
-          className=" flex bg-blue hover:bg-blueHover w-fit m-auto py-4 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
+          className=" flex uppercase font-medium bg-blue hover:bg-blueHover hover:text-white w-fit m-auto py-4 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
         >
           <CalendarIcon />
-          <p className="p-1">Check available dates</p>
+          Check available dates
         </Link>
       ) : (
         <Link
           to={`/login`}
-          className="flex  bg-blue hover:bg-blueHover w-fit m-auto py-4 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
+          className="flex uppercase font-medium bg-blue hover:bg-blueHover hover:text-white w-fit m-auto py-4 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
         >
           <ProfileIcon />
           <p className="p-1">Login to book dates</p>
