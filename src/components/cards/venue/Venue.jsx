@@ -57,7 +57,7 @@ export const VenueActions = ({ user, venueId, owner, reservationId }) => {
         <div>
           <Link
             to={`/venue/${venueId}`}
-            className="block my-5 text-center bg-red hover:bg-redHover hover:text-white py-4 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
+            className="block my-5 text-center uppercase font-medium bg-red hover:bg-redHover hover:text-white py-4 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
           >
             View venue
           </Link>
@@ -69,13 +69,13 @@ export const VenueActions = ({ user, venueId, owner, reservationId }) => {
         <div className="flex justify-around">
           <Link
             to={`/manage/${venueId}`}
-            className="w-1/3 bg-green hover:bg-greenHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl text-center"
+            className="w-1/3 uppercase font-medium bg-green hover:bg-greenHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl text-center"
           >
             Manage
           </Link>
           <button
             onClick={() => deleteItem(deleteVenueUrl)}
-            className="w-1/3 bg-red hover:bg-redHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
+            className="w-1/3 uppercase font-medium bg-red hover:bg-redHover hover:text-white py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
           >
             Delete
           </button>
@@ -83,16 +83,16 @@ export const VenueActions = ({ user, venueId, owner, reservationId }) => {
       );
     }
     return (
-      <div className="flex justify-around">
+      <div className="flex justify-around gap-5 my-2">
         <Link
           to={`/reservation/${reservationId}`}
-          className=" block bg-green hover:bg-greenHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
+          className=" block w-1/2 text-center uppercase font-medium bg-green hover:bg-greenHover py-4 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
         >
           Update booking
         </Link>
         <button
           onClick={() => deleteItem(deleteBookingUrl)}
-          className="bg-red py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
+          className="block w-1/2 text-center uppercase font-medium bg-red hover:bg-redHover hover:text-white py-4 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
         >
           Cancel
         </button>
