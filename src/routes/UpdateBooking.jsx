@@ -50,8 +50,8 @@ export function UpdateBooking() {
   function bookingData(data) {
     console.log(data);
     const formData = {
-      dateFrom: data.bookingDates[0],
-      dateTo: data.bookingDates[1],
+      dateFrom: data.datePicker[0],
+      dateTo: data.datePicker[1],
       guests: Number(data.guests),
     };
     console.log(formData);
