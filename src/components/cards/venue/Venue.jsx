@@ -2,10 +2,11 @@ import { Link } from "react-router-dom";
 import VenueImage from "./VenueImage";
 import { API } from "../../../api/enpoints";
 import { deleteItem } from "../../../api/token/delete";
+import { EditIcon, BinIcon } from "../../icons/index.mjs";
 
 const Location = ({ location }) => {
   if (!location?.country ?? !location?.city) {
-    return null;
+    return "Location: N/A";
   }
 
   return (
@@ -28,14 +29,16 @@ export const Venue = ({ venue, user, owner, reservationId }) => {
   return (
     <div className="">
       <div className="bg-light rounded-lg">
-        <VenueImage
-          image={venue?.media}
-          name={venue.name}
-          maxGuests={venue.maxGuests}
-        />
-        <h2>{venue.name ? venue.name : "Venue name not added yet"}</h2>
-        <Location location={venue?.location} />
-        <Price price={venue.price} />
+        <Link to={`/venue/${venue.id}`}>
+          <VenueImage
+            image={venue?.media}
+            name={venue.name}
+            maxGuests={venue.maxGuests}
+          />
+          <h2>{venue.name ? venue.name : "Venue name not added yet"}</h2>
+          <Location location={venue?.location} />
+          <Price price={venue.price} />
+        </Link>
       </div>
       <VenueActions
         user={user}
@@ -57,7 +60,7 @@ export const VenueActions = ({ user, venueId, owner, reservationId }) => {
         <div>
           <Link
             to={`/venue/${venueId}`}
-            className="block my-5 text-center bg-red hover:bg-redHover hover:text-white py-4 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
+            className="block my-5 text-center uppercase font-medium bg-red hover:bg-redHover hover:text-white py-4 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
           >
             View venue
           </Link>
@@ -66,33 +69,39 @@ export const VenueActions = ({ user, venueId, owner, reservationId }) => {
     }
     if (owner) {
       return (
-        <div className="flex justify-around">
+        <div className="flex justify-around gap-5 my-2">
           <Link
             to={`/manage/${venueId}`}
-            className="w-1/3 bg-green hover:bg-greenHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl text-center"
+            className="flex text-center basis-1/2 items-center uppercase font-medium bg-green hover:bg-greenHover py-4 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
           >
-            Manage
+            <div className="flex m-auto">
+              <EditIcon />
+              <p>Manage</p>
+            </div>
           </Link>
           <button
             onClick={() => deleteItem(deleteVenueUrl)}
-            className="w-1/3 bg-red hover:bg-redHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
+            className="flex text-center basis-1/2 items-center uppercase font-medium bg-red hover:bg-redHover py-4 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
           >
-            Delete
+            <div className="flex m-auto">
+              <BinIcon />
+              <p>Delete</p>
+            </div>
           </button>
         </div>
       );
     }
     return (
-      <div className="flex justify-around">
+      <div className="flex justify-around gap-5 my-2">
         <Link
           to={`/reservation/${reservationId}`}
-          className=" block bg-green hover:bg-greenHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
+          className=" block w-1/2 text-center uppercase font-medium bg-green hover:bg-greenHover py-4 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
         >
           Update booking
         </Link>
         <button
           onClick={() => deleteItem(deleteBookingUrl)}
-          className="bg-red py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
+          className="block w-1/2 text-center uppercase font-medium bg-red hover:bg-redHover hover:text-white py-4 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
         >
           Cancel
         </button>

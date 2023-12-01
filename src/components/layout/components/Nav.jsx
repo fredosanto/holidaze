@@ -1,9 +1,10 @@
 import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useLogout } from "../../../api/auth/index.mjs";
 import { useState, useEffect } from "react";
 import { isOnline } from "../../../api/auth/index.mjs";
-import menuIcon from "../../../assets/menu-outline.svg";
-import closeIcon from "../../../assets/close-outline.svg";
+import menuIcon from "/menu-outline.svg";
+import closeIcon from "/close-outline.svg";
 
 function Nav() {
   const isLoggedIn = isOnline();
@@ -35,9 +36,11 @@ function Nav() {
     <nav className="flex flex-col md:flex-row justify-between bg-red w-full p-5">
       <div className="flex justify-between items-center mx-5">
         <div>
-          <span id="logo" className="text-4xl font-bold">
-            Holidaze
-          </span>
+          <Link to="/">
+            <span id="logo" className="text-4xl font-bold">
+              Holidaze
+            </span>
+          </Link>
         </div>
         <div className="md:hidden block">
           <img
@@ -56,14 +59,20 @@ function Nav() {
           className="flex flex-col md:flex-row gap-5 md:gap-10 items-center bg-black md:bg-red text-white md:text-black w-full md:w-auto p-5 md:p-0 z-[2] md:z-auto md:static absolute left-0 opacity-0 md:opacity-100 invisible md:visible transition-all ease-in-out duration-300"
         >
           <li>
-            <NavLink to="/">Home</NavLink>
+            <NavLink to="/" className="hover:underline">
+              Home
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/venues">Venues</NavLink>
+            <NavLink to="/venues" className="hover:underline">
+              Venues
+            </NavLink>
           </li>
           <li>
             {localStorage.getItem("token") ? (
-              <NavLink to="/profile">Profile</NavLink>
+              <NavLink to="/profile" className="hover:underline">
+                Profile
+              </NavLink>
             ) : (
               <NavLink
                 to="/login"
@@ -77,7 +86,7 @@ function Nav() {
             <li>
               <button
                 onClick={useLogout}
-                className="inline-block text-black bg-blue hover:bg-blueHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
+                className="inline-block text-black font-medium uppercase bg-blue hover:bg-blueHover hover:text-white py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
               >
                 Logout
               </button>

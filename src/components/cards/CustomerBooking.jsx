@@ -9,8 +9,8 @@ export function CustomerBooking({ id }) {
   const customerImg = booking?.customer.avatar;
 
   return (
-    <div className="flex flex-col gap-2 p-5">
-      <div className="flex items-center">
+    <div className="flex flex-col gap-2 p-5 bg-green my-5 rounded-xl">
+      <div className="flex items-center gap-5">
         <div>
           {customerImg ? (
             <img
@@ -29,14 +29,22 @@ export function CustomerBooking({ id }) {
       </div>
       <div>
         <hr className="text-grey" />
-        <p>Date from: {booking?.dateFrom.slice(0, 10)}</p>
-        <p>Date to: {booking?.dateTo.slice(0, 10)}</p>
-        <p>Guests: {booking?.guests}</p>
+        <p>
+          Date from: <b>{booking?.dateFrom?.slice(0, 10)}</b>
+        </p>
+        <p>
+          Date to: <b>{booking?.dateTo?.slice(0, 10)}</b>
+        </p>
+        <p>
+          Guests: <b>{booking?.guests}</b>
+        </p>
         <hr className="text-grey" />
       </div>
       <div>
         <p>Booking nr:</p>
-        <p>{booking?.id}</p>
+        <p>
+          <b>{booking?.id?.slice(0, 18)}</b>
+        </p>
       </div>
     </div>
   );

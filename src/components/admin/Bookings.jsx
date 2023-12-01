@@ -10,8 +10,8 @@ export function Bookings({ venue }) {
 
   return (
     <div>
-      <h2 className="text-xl">Bookings on venue</h2>
-      <div className="bg-light rounded-lg">
+      <div className="bg-light rounded-xl p-5">
+        <h2 className="text-xl text-center">Bookings on venue</h2>
         {bookings.length > 0 ? (
           bookings.map((booking) => (
             <CustomerBooking key={booking.id} id={booking.id} />

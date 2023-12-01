@@ -3,6 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { update } from "../../api/auth/update";
 import { API } from "../../api/enpoints";
+import { EditIcon } from "../icons/index.mjs";
 
 const schema = yup.object({
   name: yup.string().required("*Please add a name"),
@@ -37,11 +38,13 @@ export function UpdateForm({ venue, venueId }) {
 
   return (
     <div>
-      <h1>Add new venue</h1>
-      <p>Fields marked with * is required.</p>
-      <form onSubmit={handleSubmit((data) => update(data, url))}>
-        <div className="formSection general">
-          <h2>General information</h2>
+      <p className="text-center">Fields marked with * is required.</p>
+      <form
+        onSubmit={handleSubmit((data) => update(data, url))}
+        className="my-5 bg-red p-5 w-full rounded-xl flex flex-col gap-5"
+      >
+        <div className="formSection general ">
+          <h2 className="text-lg text-center">General information</h2>
           <div className="formInput">
             <label htmlFor="name">Name:*</label>
             <input
@@ -49,7 +52,7 @@ export function UpdateForm({ venue, venueId }) {
               type="text"
               defaultValue={venue.name}
               placeholder="Enter name"
-              className="border block"
+              className="border block p-2 w-full rounded-lg border-black"
             />
             <p>{errors.name?.message}</p>
           </div>
@@ -60,7 +63,7 @@ export function UpdateForm({ venue, venueId }) {
               type="text"
               defaultValue={venue.description}
               placeholder="Write a description..."
-              className="border block w-96 h-52"
+              className="border block w-full h-52 p-2 rounded-lg border-black"
             ></textarea>
             <p>{errors.description?.message}</p>
           </div>
@@ -71,7 +74,7 @@ export function UpdateForm({ venue, venueId }) {
               type="text"
               defaultValue={venue.media}
               placeholder="https://img.service.com/avatar.jpg"
-              className="border block"
+              className="border block p-2 w-full rounded-lg border-black"
             />
             <p>{errors.media?.message}</p>
           </div>
@@ -83,7 +86,7 @@ export function UpdateForm({ venue, venueId }) {
               min="0"
               defaultValue={venue.price}
               placeholder="10000"
-              className="border block"
+              className="border block p-2 w-full rounded-lg border-black"
             />
             <p>{errors.price?.message}</p>
           </div>
@@ -95,7 +98,7 @@ export function UpdateForm({ venue, venueId }) {
               min="0"
               defaultValue={venue.maxGuests}
               placeholder="4"
-              className="border block"
+              className="border block p-2 w-full rounded-lg border-black"
             />
             <p>{errors.maxGuests?.message}</p>
           </div>
@@ -107,54 +110,60 @@ export function UpdateForm({ venue, venueId }) {
               min="0"
               max="5"
               defaultValue={venue.rating}
-              className="border block"
+              className="border block p-2 w-full rounded-lg border-black"
             />
             <p>{errors.rating?.message}</p>
           </div>
         </div>
-        <div className="formSection services">
-          <h2>Services</h2>
-          <div>
-            <div>
-              <label htmlFor="wifi">wifi:</label>
-              <input
-                {...createRegister("meta.wifi")}
-                type="checkbox"
-                className="border"
-              />
-              <p>{errors.wifi?.message}</p>
+        <div className="formSection services bg-green p-2 rounded-lg">
+          <hr className="my-2" />
+          <h2 className="text-lg text-center my-2">Services</h2>
+          <div className="flex justify-around gap-5">
+            <div className="flex gap-5">
+              <div>
+                <label htmlFor="wifi">WiFi:</label>
+                <input
+                  {...createRegister("meta.wifi")}
+                  type="checkbox"
+                  className="border m-1"
+                />
+                <p>{errors.wifi?.message}</p>
+              </div>
+              <div>
+                <label htmlFor="parking">Parking:</label>
+                <input
+                  {...createRegister("meta.parking")}
+                  type="checkbox"
+                  className="border m-1"
+                />
+                <p>{errors.parking?.message}</p>
+              </div>
             </div>
-            <div>
-              <label htmlFor="parking">Parking:</label>
-              <input
-                {...createRegister("meta.parking")}
-                type="checkbox"
-                className="border"
-              />
-              <p>{errors.parking?.message}</p>
-            </div>
-            <div>
-              <label htmlFor="breakfast">Breakfast:</label>
-              <input
-                {...createRegister("meta.breakfast")}
-                type="checkbox"
-                className="border"
-              />
-              <p>{errors.breakfast?.message}</p>
-            </div>
-            <div>
-              <label htmlFor="pets">Pets:</label>
-              <input
-                {...createRegister("meta.pets")}
-                type="checkbox"
-                className="border"
-              />
-              <p>{errors.pets?.message}</p>
+            <div className="flex gap-5">
+              <div>
+                <label htmlFor="breakfast">Breakfast:</label>
+                <input
+                  {...createRegister("meta.breakfast")}
+                  type="checkbox"
+                  className="border m-1"
+                />
+                <p>{errors.breakfast?.message}</p>
+              </div>
+              <div>
+                <label htmlFor="pets">Pets:</label>
+                <input
+                  {...createRegister("meta.pets")}
+                  type="checkbox"
+                  className="border m-1"
+                />
+                <p>{errors.pets?.message}</p>
+              </div>
             </div>
           </div>
+          <hr className="my-2" />
         </div>
         <div className="inputSection location">
-          <h2>Location information</h2>
+          <h2 className="text-lg text-center my-2">Location information</h2>
           <div>
             <label htmlFor="address">Address:</label>
             <input
@@ -162,11 +171,11 @@ export function UpdateForm({ venue, venueId }) {
               type="text"
               defaultValue={venue.location?.address}
               placeholder="Venue Address 23"
-              className="border block"
+              className="border block p-2 w-full rounded-lg border-black"
             />
             <p>{errors.address?.message}</p>
           </div>
-          <div className="inputSplit flex">
+          <div className="inputSplit flex gap-1">
             <div className="split">
               <label htmlFor="city">City:</label>
               <input
@@ -174,7 +183,7 @@ export function UpdateForm({ venue, venueId }) {
                 type="text"
                 defaultValue={venue.location?.city}
                 placeholder="e.g Oslo"
-                className="border block"
+                className="border block p-2 w-full rounded-lg border-black"
               />
               <p>{errors.city?.message}</p>
             </div>
@@ -185,7 +194,7 @@ export function UpdateForm({ venue, venueId }) {
                 type="text"
                 defaultValue={venue.location?.zip}
                 placeholder="e.g 0664"
-                className="border block"
+                className="border block p-2 w-full rounded-lg border-black"
               />
               <p>{errors.zip?.message}</p>
             </div>
@@ -197,7 +206,7 @@ export function UpdateForm({ venue, venueId }) {
               type="text"
               defaultValue={venue.location?.country}
               placeholder="e.g Norway"
-              className="border block"
+              className="border block p-2 w-full rounded-lg border-black"
             />
             <p>{errors.country?.message}</p>
           </div>
@@ -208,11 +217,11 @@ export function UpdateForm({ venue, venueId }) {
               type="text"
               defaultValue={venue.location?.continent}
               placeholder="e.g Europe"
-              className="border block"
+              className="border block p-2 w-full rounded-lg border-black"
             />
             <p>{errors.continent?.message}</p>
           </div>
-          <div className="inputSplit flex">
+          <div className="inputSplit flex gap-1">
             <div className="split">
               <label htmlFor="latitude">Latitude:</label>
               <input
@@ -220,7 +229,7 @@ export function UpdateForm({ venue, venueId }) {
                 type="number"
                 defaultValue={venue.location?.lat}
                 placeholder="59.911491"
-                className="border block"
+                className="border block p-2 w-full rounded-lg border-black"
               />
               <p>{errors.latitude?.message}</p>
             </div>
@@ -231,7 +240,7 @@ export function UpdateForm({ venue, venueId }) {
                 type="number"
                 defaultValue={venue.location?.lng}
                 placeholder="10.757933"
-                className="border block"
+                className="border block p-2 w-full rounded-lg border-black"
               />
               <p>{errors.longitude?.message}</p>
             </div>
@@ -239,9 +248,12 @@ export function UpdateForm({ venue, venueId }) {
         </div>
         <button
           type="submit"
-          className="bg-blue hover:bg-blueHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
+          className="flex uppercase font-medium bg-blue hover:bg-blueHover hover:text-white w-fit m-auto py-4 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
         >
-          Add venue
+          <div className="flex">
+            <EditIcon />
+            Update
+          </div>
         </button>
       </form>
     </div>

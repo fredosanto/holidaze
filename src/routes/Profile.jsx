@@ -8,8 +8,10 @@ import { ProfileBooking } from "../components/cards/ProfileBookings";
 
 function Profile() {
   const userProfile = user();
-  const url = API.profiles.name(userProfile.name).venues;
-  const { data: venues, isLoading, error } = useFetchProfileVenues(url);
+  const urlParameters = "?_venue=true";
+  const url = `${API.profiles.name(userProfile.name).bookings + urlParameters}`;
+  // const url = API.profiles.name(userProfile.name).venues;
+  const { data: reservations, isLoading, error } = useFetchProfileVenues(url);
 
   if (isLoading) {
     return <Loading />;
@@ -21,8 +23,8 @@ function Profile() {
   }
 
   return (
-    <div>
-      <h1>Profile</h1>
+    <div className="flex flex-col items-center my-10">
+      <h1 className="text-2xl">Profile</h1>
       {userProfile ? (
         <ProfileCard
           avatar={userProfile.avatar}
@@ -32,7 +34,12 @@ function Profile() {
         />
       ) : null}
       <div className="my-10">
-        <ProfileBooking username={userProfile.name} />
+        <hr className="my-5 text-grey" />
+        <h2 className="text-xl text-center md:text-left">
+          Upcoming reservations
+        </h2>
+        <ProfileBooking reservations={reservations} />
+        {/* <ProfileBooking username={userProfile.name} /> */}
       </div>
     </div>
   );

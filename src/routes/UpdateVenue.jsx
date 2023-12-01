@@ -4,6 +4,7 @@ import { useFetch } from "../hooks/useFetch";
 import { UpdateForm } from "../components/admin/UpdateForm";
 import ErrorPage from "./ErrorPage";
 import Loading from "../components/Loading";
+import { BackIcon } from "../components/icons/index.mjs";
 
 export function UpdateVenue() {
   const { venueId } = useParams();
@@ -21,10 +22,15 @@ export function UpdateVenue() {
   }
 
   return (
-    <div>
-      <h1>Update Venue</h1>
-      <UpdateForm venue={venue} venueId={venueId} />
-      <Link to="/profile">Go back to profile</Link>
+    <div className="max-w-4xl m-auto">
+      <Link to="/profile" className="flex my-2">
+        <BackIcon />
+        Back to your venues
+      </Link>
+      <div className="flex flex-col items-center my-10 gap-5">
+        <h1 className="text-2xl">Update Venue</h1>
+        <UpdateForm venue={venue} venueId={venueId} />
+      </div>
     </div>
   );
 }
