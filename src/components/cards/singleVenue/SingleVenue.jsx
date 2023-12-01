@@ -66,7 +66,7 @@ function ActionButton({ id }) {
           className=" flex uppercase font-medium bg-blue hover:bg-blueHover hover:text-white w-fit m-auto py-4 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
         >
           <CalendarIcon />
-          Check available dates
+          <p className="p-1">Check available dates</p>
         </Link>
       ) : (
         <Link

@@ -25,35 +25,44 @@ export function Login() {
   // };
 
   return (
-    <div className="h-screen">
-      <form onSubmit={handleSubmit((data) => login(data))}>
-        <div className="loginInput">
-          <label htmlFor="email">email</label>
-          <input
-            type="email"
-            {...register("email")}
-            placeholder="user@stud.noroff.no"
-            className="border block"
-          />
-          <p>{errors.email?.message}</p>
-        </div>
-        <div className="loginInput">
-          <label htmlFor="password">password</label>
-          <input
-            type="password"
-            {...register("password")}
-            placeholder="********"
-            className="border block"
-          />
-          <p>{errors.password?.message}</p>
-        </div>
-        <button className="bg-blue hover:bg-blueHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl">
-          Login
-        </button>
-      </form>
-      <Link to="/register" className="underline">
-        Register
-      </Link>
+    <div className="h-screen  bg-light">
+      <div className="flex flex-col items-center gap-5">
+        <h1 className="text-2xl mt-32">Login</h1>
+        <form
+          onSubmit={handleSubmit((data) => login(data))}
+          className="flex flex-col gap-2 py-5 px-20 bg-red rounded-xl"
+        >
+          <div className="loginInput">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              {...register("email")}
+              placeholder="user@stud.noroff.no"
+              className="border block p-2 w-full rounded-lg border-black"
+            />
+            <p>{errors.email?.message}</p>
+          </div>
+          <div className="loginInput">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              {...register("password")}
+              placeholder="********"
+              className="border block p-2 w-full rounded-lg border-black"
+            />
+            <p>{errors.password?.message}</p>
+          </div>
+          <button className="bg-blue hover:bg-blueHover hover:text-white py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl">
+            Login
+          </button>
+        </form>
+        <Link to="/register" className="underline">
+          <p>
+            Dont have a Holidaze profile?{" "}
+            <span className="underline">Register here</span>
+          </p>
+        </Link>
+      </div>
     </div>
   );
 }

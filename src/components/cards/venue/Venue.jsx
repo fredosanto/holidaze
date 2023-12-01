@@ -2,10 +2,11 @@ import { Link } from "react-router-dom";
 import VenueImage from "./VenueImage";
 import { API } from "../../../api/enpoints";
 import { deleteItem } from "../../../api/token/delete";
+import { EditIcon, BinIcon } from "../../icons/index.mjs";
 
 const Location = ({ location }) => {
   if (!location?.country ?? !location?.city) {
-    return null;
+    return "Location: N/A";
   }
 
   return (
@@ -68,18 +69,24 @@ export const VenueActions = ({ user, venueId, owner, reservationId }) => {
     }
     if (owner) {
       return (
-        <div className="flex justify-around">
+        <div className="flex justify-around gap-5 my-2">
           <Link
             to={`/manage/${venueId}`}
-            className="w-1/3 uppercase font-medium bg-green hover:bg-greenHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl text-center"
+            className="flex text-center basis-1/2 items-center uppercase font-medium bg-green hover:bg-greenHover py-4 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
           >
-            Manage
+            <div className="flex m-auto">
+              <EditIcon />
+              <p>Manage</p>
+            </div>
           </Link>
           <button
             onClick={() => deleteItem(deleteVenueUrl)}
-            className="w-1/3 uppercase font-medium bg-red hover:bg-redHover hover:text-white py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
+            className="flex text-center basis-1/2 items-center uppercase font-medium bg-red hover:bg-redHover py-4 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
           >
-            Delete
+            <div className="flex m-auto">
+              <BinIcon />
+              <p>Delete</p>
+            </div>
           </button>
         </div>
       );
