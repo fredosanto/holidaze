@@ -76,7 +76,7 @@ function Nav() {
             ) : (
               <NavLink
                 to="/login"
-                className="inline-block bg-green hover:bg-greenHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
+                className="inline-block bg-green text-black hover:bg-greenHover py-2 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
               >
                 Login
               </NavLink>
