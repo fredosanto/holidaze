@@ -25,7 +25,7 @@ export function Login() {
         <h1 className="text-2xl mt-32">Login</h1>
         <form
           onSubmit={handleSubmit((data) => handleLogin(data))}
-          className="flex flex-col gap-5 py-5 px-20 bg-light rounded-xl"
+          className="flex flex-col gap-5 py-5 px-10 bg-light rounded-xl"
         >
           <div className="loginInput">
             <label htmlFor="email">Email</label>
