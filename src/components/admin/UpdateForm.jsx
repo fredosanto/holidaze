@@ -4,7 +4,6 @@ import { venueSchema } from "../../scehma/venue";
 import { update } from "../../api/auth/update";
 import { API } from "../../api/enpoints";
 import { EditIcon } from "../icons/index.mjs";
-import { Link } from "react-router-dom";
 import { useState } from "react";
 import { ResponseMessage } from "../ResponseMessage";
 
