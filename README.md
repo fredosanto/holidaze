@@ -2,6 +2,12 @@
 
 Check out the [Live Demo](https://fredo-holidaze.netlify.app/) here.
 
+<img width="500" alt="holidaze" src="https://github.com/fredosanto/holidaze/assets/93183340/e18e8b39-db4f-43f0-b13c-43e78e7e4249">
+
+<img width="500" alt="holidaze_venue" src="https://github.com/fredosanto/holidaze/assets/93183340/b4bc867c-179b-4d38-85cc-b39e6d21bd23">
+
+
+
 ## Description
 
 This project is my project exam at Noroff where I was tasked to make a booking site called Holidaze.
