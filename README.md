@@ -48,10 +48,11 @@ A registered user may logout
 - CSS
 - JavaScript
 - React
-- Tailwind
-- react-router-dom
-- react-hook-form
-- yup
+- [Tailwind](https://tailwindcss.com/)
+- [react-router](https://reactrouter.com/en/6.20.0)
+- [react-hook-form](https://react-hook-form.com/)
+- [Yup](https://github.com/jquense/yup)
+- [React Datepicker](https://reactdatepicker.com/)
 - Netlify
 
 ## Reference
