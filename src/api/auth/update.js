@@ -1,7 +1,6 @@
 import { load } from "../token/index.mjs";
 
 export async function update(venueData, url) {
-  console.log(venueData);
   try {
     const response = await fetch(url, {
       method: "PUT",
@@ -12,11 +11,14 @@ export async function update(venueData, url) {
       },
     });
 
-    const res = await response.json();
-    console.log(res);
-    alert("Updated");
-    location.assign("/profile");
-  } catch (err) {
-    console.log(err);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw Error(data.errors[0].message);
+    }
+
+    return response.ok;
+  } catch (error) {
+    return error.message;
   }
 }

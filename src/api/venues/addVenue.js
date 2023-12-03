@@ -1,5 +1,4 @@
 import { API } from "../enpoints";
-// import { user } from "../auth/index.mjs";
 import { load } from "../token/index.mjs";
 
 const url = API.venues.$;
@@ -15,11 +14,14 @@ export async function addVenue(venueData) {
       },
     });
 
-    const res = await response.json();
-    console.log(res);
-    alert("New venue added");
-    location.assign("/profile");
-  } catch (err) {
-    console.log(err);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw Error(data.errors[0].message);
+    }
+
+    return response.ok;
+  } catch (error) {
+    return error.message;
   }
 }
