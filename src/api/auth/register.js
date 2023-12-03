@@ -10,9 +10,7 @@ export async function register(formData) {
       headers: { "Content-type": "application/json" },
     });
 
-    console.log(response);
     const data = await response.json();
-    console.log(data);
 
     if (!response.ok) {
       throw Error(data.errors[0].message);
