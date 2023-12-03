@@ -10,7 +10,6 @@ function Profile() {
   const userProfile = user();
   const urlParameters = "?_venue=true";
   const url = `${API.profiles.name(userProfile.name).bookings + urlParameters}`;
-  // const url = API.profiles.name(userProfile.name).venues;
   const { data: reservations, isLoading, error } = useFetchProfileVenues(url);
 
   if (isLoading) {
@@ -39,7 +38,6 @@ function Profile() {
           Upcoming reservations
         </h2>
         <ProfileBooking reservations={reservations} />
-        {/* <ProfileBooking username={userProfile.name} /> */}
       </div>
     </div>
   );
