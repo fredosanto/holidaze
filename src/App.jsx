@@ -19,7 +19,8 @@ import "./App.css";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Layout />} errorElement={<ErrorPage />}>
+      <Route path="/" element={<Layout />}>
+        {/* <Route path="/" element={<Layout />} errorElement={<ErrorPage />}> */}
         {/* <Route path="/" element={<Layout />}> */}
         <Route index element={<Home />} />
         <Route path="/venues" element={<Venues />} />
@@ -34,7 +35,7 @@ function App() {
         <Route path="/add" element={<Add />} />
         <Route path="/manage/:venueId" element={<Manage />} />
         <Route path="/update/:venueId" element={<UpdateVenue />} />
-        <Route path="*" element={<UpdateVenue />} />
+        <Route path="*" element={<ErrorPage />} />
       </Route>
     </Routes>
   );

@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 export default function Loading() {
   return (
     <div className="flex justify-center items-center bg-blueHover h-screen">
