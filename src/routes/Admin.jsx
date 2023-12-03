@@ -21,19 +21,12 @@ export function Admin() {
     return <ErrorPage />;
   }
 
-  // console.log(userProfile);
-  // console.log(venues);
-  // const adminPanel = venues.map(
-  //   (venue) => venue?.owner?.name === userProfile.name
-  // );
-  // console.log(adminPanel);
-
   return (
     <div className="m-auto max-w-4xl">
       <div className="flex flex-col gap-5">
         <Link to="/profile" className="flex my-2">
           <BackIcon />
-          Back to your venues
+          Back to your profile
         </Link>
         <div>
           <h1 className="text-2xl text-center my-5">Admin Owned Avenues</h1>
@@ -50,15 +43,21 @@ export function Admin() {
           <p className="p-1">Add new venue</p>
         </Link>
         <hr className="my-5 text-grey" />
-        <div className="md:m-10 grid gap-10 md:grid-cols-2 justify-center">
-          {venues.map((venue) => (
-            <Venue
-              key={venue.id}
-              venue={venue}
-              user={userProfile}
-              owner={venue?.owner?.name === userProfile.name}
-            />
-          ))}
+        <div className="my-10">
+          {venues.length > 0 ? (
+            <div className="md:m-10 grid gap-10 md:grid-cols-2 justify-center">
+              {venues.map((venue) => (
+                <Venue
+                  key={venue.id}
+                  venue={venue}
+                  user={userProfile}
+                  owner={venue?.owner?.name === userProfile.name}
+                />
+              ))}
+            </div>
+          ) : (
+            <p className="text-center">Your venues list is empty</p>
+          )}
         </div>
       </div>
     </div>

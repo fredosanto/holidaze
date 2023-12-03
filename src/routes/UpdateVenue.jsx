@@ -23,9 +23,9 @@ export function UpdateVenue() {
 
   return (
     <div className="max-w-4xl m-auto">
-      <Link to="/profile" className="flex my-2">
+      <Link to="/admin" className="flex my-2">
         <BackIcon />
-        Back to your venues
+        Go back to admin panel
       </Link>
       <div className="flex flex-col items-center my-10 gap-5">
         <h1 className="text-2xl">Update Venue</h1>

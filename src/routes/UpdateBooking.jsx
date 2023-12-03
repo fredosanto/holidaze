@@ -1,28 +1,53 @@
 import { useParams } from "react-router";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import { reservationSchema } from "../scehma/updateReservation";
 import { update } from "../api/auth/update";
 import { API } from "../api/enpoints";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
 import { useFetchReservation } from "../hooks/useFetchReservation";
 import { useFetch } from "../hooks/useFetch";
 import Loading from "../components/Loading";
 import ErrorPage from "./ErrorPage";
+import { ResponseMessage } from "../components/ResponseMessage";
+import "react-datepicker/dist/react-datepicker.css";
 
-const reservationSchema = yup.object({
-  datePicker: yup
-    .array()
-    .length(2)
-    .required("Please add booking date from and to")
-    .of(yup.date().required("Please choose a date for both dates")),
-  guests: yup
-    .number()
-    .required()
-    .typeError("Field must be a number between 1 and Max Guest"),
-});
+function CurrentReservation({ reservation, reservationVenue }) {
+  return (
+    <div className="basis-1/2 flex flex-col gap-1 items-center bg-light h-fit p-5 rounded-lg">
+      <div>
+        <h3 className="uppercase text-center my-1">Current reservation</h3>
+        <p>Booked from: {reservation?.dateFrom?.slice(0, 10)}</p>
+        <p>Booked to: {reservation?.dateTo?.slice(0, 10)}</p>
+        <p>
+          Guests: <b>{reservation?.guests}</b>
+        </p>
+        <hr className="text-black my-2" />
+        <div className="bg-green p-2 rounded-lg">
+          <p>Created:</p>
+          <p>
+            <b>{reservation?.created?.slice(0, 10)}</b>
+          </p>
+          <p>Last updated:</p>
+          <p>
+            <b>{reservation?.updated?.slice(0, 10)}</b>
+          </p>
+        </div>
+        <hr className="text-black my-2" />
+      </div>
+      <div className="">
+        <h3 className="uppercase text-center my-1">Venue information</h3>
+        <p>
+          Price per night: <b>{reservationVenue?.price} NOK</b>
+        </p>
+        <p>
+          Max guests: <b>{reservationVenue?.maxGuests}</b>
+        </p>
+      </div>
+    </div>
+  );
+}
 
 export function UpdateBooking() {
   const { bookingId } = useParams();
@@ -30,13 +55,14 @@ export function UpdateBooking() {
   const bookingUrl = `${API.bookings.id(bookingId).$ + bookingParameters}`;
 
   const { data: reservation, error } = useFetchReservation(bookingUrl);
-  // console.log(reservation);
 
   const venueId = reservation?.venue?.id;
   const venueParameters = "?_owner=true&_bookings=true";
   const venueUrl = `${API.venues.id(venueId).$ + venueParameters}`;
   const { data: reservationVenue, isLoading } = useFetch(venueUrl);
 
+  const [message, setMessage] = useState("");
+  const [success, setSuccess] = useState(false);
   const [dateRange, setDataRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
 
@@ -47,15 +73,18 @@ export function UpdateBooking() {
     formState: { errors },
   } = useForm({ resolver: yupResolver(reservationSchema) });
 
-  function bookingData(data) {
-    console.log(data);
+  async function bookingData(data) {
     const formData = {
       dateFrom: data.datePicker[0],
       dateTo: data.datePicker[1],
       guests: Number(data.guests),
     };
-    console.log(formData);
-    update(formData, bookingUrl);
+    const res = await update(formData, bookingUrl);
+    setMessage(res);
+    if (res === true) {
+      return setSuccess(res);
+    }
+    return setSuccess(false);
   }
 
   const datesToExclude = reservationVenue?.bookings?.map((booking) => ({
@@ -92,18 +121,12 @@ export function UpdateBooking() {
             onSubmit={handleSubmit(bookingData)}
             className="flex flex-col items-center"
           >
-            {/* <form
-            onSubmit={handleSubmit((data) => bookingData(data))}
-            className="flex flex-col items-center"
-          > */}
             <div>
               <div>
                 <Controller
                   control={control}
                   name="datePicker"
                   rules={{ required: true }}
-                  // createUpdateRegister
-                  //   defaultValue={null}
                   render={({ field: { onChange } }) => (
                     <>
                       <DatePicker
@@ -116,10 +139,8 @@ export function UpdateBooking() {
                           onChange(update);
                         }}
                         excludeDateIntervals={datesToExclude}
-                        // selected={value}
                         isClearable={true}
                         inline
-                        // withPortal
                       />
                     </>
                   )}
@@ -142,6 +163,12 @@ export function UpdateBooking() {
               <div className="bg-redHover text-white text-xs rounded-xl">
                 <p>{errors.guests?.message}</p>
               </div>
+              <ResponseMessage
+                message={message}
+                success={success}
+                messageContent={"Reservation updated!"}
+                linkContent={`profile`}
+              />
               <button
                 type="submit"
                 className="inline-block text-black font-medium uppercase bg-blue hover:bg-blueHover hover:text-white py-4 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"
@@ -151,37 +178,10 @@ export function UpdateBooking() {
             </div>
           </form>
         </div>
-        <div className="basis-1/2 flex flex-col gap-1 items-center bg-light h-fit p-5 rounded-lg">
-          <div>
-            <h3 className="uppercase text-center my-1">Current reservation</h3>
-            <p>Booked from: {reservation?.dateFrom?.slice(0, 10)}</p>
-            <p>Booked to: {reservation?.dateTo?.slice(0, 10)}</p>
-            <p>
-              Guests: <b>{reservation?.guests}</b>
-            </p>
-            <hr className="text-black my-2" />
-            <div className="bg-green p-2 rounded-lg">
-              <p>Created:</p>
-              <p>
-                <b>{reservation?.created?.slice(0, 10)}</b>
-              </p>
-              <p>Last updated:</p>
-              <p>
-                <b>{reservation?.updated?.slice(0, 10)}</b>
-              </p>
-            </div>
-            <hr className="text-black my-2" />
-          </div>
-          <div className="">
-            <h3 className="uppercase text-center my-1">Venue information</h3>
-            <p>
-              Price per night: <b>{reservationVenue?.price} NOK</b>
-            </p>
-            <p>
-              Max guests: <b>{reservationVenue?.maxGuests}</b>
-            </p>
-          </div>
-        </div>
+        <CurrentReservation
+          reservation={reservation}
+          reservationVenue={reservationVenue}
+        />
       </div>
     </div>
   );

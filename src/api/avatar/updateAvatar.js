@@ -15,14 +15,15 @@ export async function updateAvatar(imgLink) {
       },
     });
 
-    const res = await response.json();
+    const data = await response.json();
 
-    save("user", res);
-    alert("Avatar updated");
+    if (!response.ok) {
+      throw Error(data.errors[0].message);
+    }
+
+    save("user", data);
     window.location.reload();
-
-    console.log(res);
-  } catch (err) {
-    alert(err);
+  } catch (error) {
+    return error.message;
   }
 }

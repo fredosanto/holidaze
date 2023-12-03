@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { load } from "../api/token/index.mjs";
 import { updateAvatar } from "../api/avatar/updateAvatar";
 import { BackIcon, EditIcon } from "../components/icons/index.mjs";
+import { useState } from "react";
 
 const regex = `(http(s?):)([/|.|\w|\s|-])*\.`;
 
@@ -18,6 +19,7 @@ const updateAvatarSchema = yup
   .required();
 
 function Avatar() {
+  const { message, setMessage } = useState("");
   const { avatar } = load("user");
   const showAvatar = avatar != "";
   const {
@@ -26,11 +28,16 @@ function Avatar() {
     formState: { errors },
   } = useForm({ resolver: yupResolver(updateAvatarSchema) });
 
+  async function onSubmit(formData) {
+    const res = await updateAvatar(formData);
+    setMessage(res);
+  }
+
   return (
     <div className="max-w-4xl m-auto my-10">
-      <Link to="/admin" className="flex my-2">
+      <Link to="/profile" className="flex my-2">
         <BackIcon />
-        Back to your venues
+        Back to your profile
       </Link>
       <div className="flex flex-col items-center my-10 gap-5">
         <h1 className="text-2xl">Change avatar</h1>
@@ -47,7 +54,7 @@ function Avatar() {
         </div>
         <div>
           <form
-            onSubmit={handleSubmit((data) => updateAvatar(data))}
+            onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col gap-2"
           >
             <label htmlFor="avatar">Add image link:</label>
@@ -59,7 +66,12 @@ function Avatar() {
               placeholder="https://img.service.com/avatar.jpg"
               className="border block p-2 w-72 rounded-lg border-black"
             />
-            <p>{errors.avatar?.message}</p>
+            <p className="text-xs bg-redHover text-white px-1 rounded-xl">
+              {errors.avatar?.message}
+            </p>
+            <p className="text-xs bg-redHover text-white px-1 rounded-xl">
+              {message}
+            </p>
             <button
               type="submit"
               className="flex uppercase w-full font-medium bg-blue hover:bg-blueHover hover:text-white m-auto py-4 px-6 rounded-md hover:transition-all ease-in hover:duration-300 duration-150 hover:rounded-xl"

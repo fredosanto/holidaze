@@ -3,8 +3,6 @@ import { load } from "../token/load";
 
 export async function makeBooking(formData) {
   const url = API.bookings.$;
-  console.log(url);
-  console.log(formData);
   try {
     const response = await fetch(url, {
       method: "POST",
@@ -15,11 +13,14 @@ export async function makeBooking(formData) {
       },
     });
 
-    const res = await response.json();
-    console.log(res);
-    alert("Reservation is made");
-    location.assign("/profile");
-  } catch (err) {
-    console.log(err);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw Error(data.errors[0].message);
+    }
+
+    return response.ok;
+  } catch (error) {
+    return error.message;
   }
 }

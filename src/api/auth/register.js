@@ -11,14 +11,13 @@ export async function register(formData) {
     });
 
     const data = await response.json();
-    console.log(data);
 
     if (!response.ok) {
-      throw Error;
+      throw Error(data.errors[0].message);
     }
-    alert("User succesfully registered");
-    window.location.assign("/login");
+
+    return response.ok;
   } catch (error) {
-    alert(error.message);
+    return error.message;
   }
 }
