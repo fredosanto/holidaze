@@ -22,13 +22,11 @@ export async function login(userData) {
     save("token", user.accessToken);
     save("user", user);
 
-    alert("Logged in");
     location.assign("/profile");
   } catch (err) {
     if (err instanceof Error) {
-      alert(`${err} - ${err.cause}`);
-      return;
+      return err.cause;
     }
-    alert("woops - something went wrong");
+    return err;
   }
 }
